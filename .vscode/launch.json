@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug CRA Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/react-scripts",
+      "args": [
+        "test",
+        "--runInBand",
+        "--no-cache",
+        "--watchAll=false",
+        "--env=jsdom"
+      ],
+      "cwd": "${workspaceRoot}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "CI": "true"
+      }
+    },
+    {
+      "type": "chrome",
+      "request": "attach",
+      "name": "Attach Chrome localhost:3000",
+      "urlFilter": "http://localhost:3000/*",
+      "webRoot": "${workspaceFolder}",
+      "port": 9222
+    }
+  ]
+}

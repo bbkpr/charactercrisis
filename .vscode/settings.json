@@ -1,0 +1,11 @@
+{
+  "eslint.validate": [
+    "typescript",
+    "typescriptreact"
+  ],
+  "editor.formatOnSave": true,
+  "importSorter.generalConfiguration.sortOnBeforeSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+}

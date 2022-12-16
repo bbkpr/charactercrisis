@@ -1,0 +1,46 @@
+@import '../../variables.scss';
+
+#left-sidebar {
+  background-color: $darkContentBackground;
+  color: $darkContentPrimary;
+  height: calc(100vh + 0.25rem);
+  .title {
+    a {
+      color: #e58f00;
+    }
+  }
+  .menu-item {
+    a {
+      color: $darkContentPrimary;
+      opacity: 0.5;
+
+      &.active {
+        background-color: $darkContentBackground;
+        opacity: 1;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      &.profile-link {
+        opacity: 0.7;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      &:hover {
+        background-color: $darkContentBackground;
+        opacity: 1;
+      }
+    }
+  }
+
+  hr {
+    background-color: $darkContentDividerColor;
+    color: $darkContentDividerColor;
+    border: 1px solid $darkContentDividerColor;
+  }
+}
