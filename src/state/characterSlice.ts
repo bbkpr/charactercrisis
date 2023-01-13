@@ -1,22 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Character } from '../models/character';
 
-import { SignupModel } from '../models/signupModel';
-
-export const initialState: SignupModel = {
-  color: '',
-  email: '',
-  name: '',
-  password: '',
-  terms: false
-};
+export const initialState: Character[] = [];
 
 // Can import the whole thing if you want
 export const signupSlice = createSlice({
-  name: 'signup',
+  name: 'character',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    setFormData: (state, action: PayloadAction<Partial<SignupModel>>) => {
+    setFormData: (state, action: PayloadAction<Partial<Character>>) => {
       state = { ...state, ...action.payload };
       return state;
     }

@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import colorsReducer from './colorsSlice';
-import signupReducer from './signupSlice';
+import signupReducer from './characterSlice';
 
 import type { PreloadedState } from '@reduxjs/toolkit';
 

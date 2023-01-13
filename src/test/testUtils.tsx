@@ -7,7 +7,7 @@ import { render as rtlRender } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import colorsReducer from '../state/colorsSlice';
-import signupReducer from '../state/signupSlice';
+import signupReducer from '../state/characterSlice';
 
 import type { RenderOptions } from '@testing-library/react';
 import type { AppStore, RootState } from '../state/store';
