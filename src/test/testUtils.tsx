@@ -6,8 +6,7 @@ import { configureStore, PreloadedState } from '@reduxjs/toolkit';
 import { render as rtlRender } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import colorsReducer from '../state/colorsSlice';
-import signupReducer from '../state/characterSlice';
+import characterReducer from '../state/characterSlice';
 
 import type { RenderOptions } from '@testing-library/react';
 import type { AppStore, RootState } from '../state/store';
@@ -37,7 +36,7 @@ export const renderWithProviderAndRouter = (
   {
     preloadedState = {},
     // Automatically create a store instance if no store was passed in
-    store = configureStore({ reducer: { colors: colorsReducer, signup: signupReducer }, preloadedState }),
+    store = configureStore({ reducer: { character: characterReducer }, preloadedState }),
     routePath = '/',
     ...renderOptions
   }: ExtendedRenderOptionsWithRouter = {}
