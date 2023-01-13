@@ -1,14 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import colorsReducer from './colorsSlice';
-import signupReducer from './characterSlice';
+import characterReducer from './characterSlice';
 
 import type { PreloadedState } from '@reduxjs/toolkit';
 
 // Create the root reducer separately so we can extract the RootState type
 const rootReducer = combineReducers({
-  colors: colorsReducer,
-  signup: signupReducer
+  character: characterReducer
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
