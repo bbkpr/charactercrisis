@@ -1,20 +1,27 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Character } from '../models/character';
+import { AsyncLoadable } from './dtos';
 
-export const initialState: Character[] = [];
+/** @see https://redux-toolkit.js.org/api/createEntityAdapter */
+const charactersAdapter = createEntityAdapter<Character>({
+  sortComparer: (a, b) => a.name.localeCompare(b.name)
+});
+
+export interface CharacterData extends AsyncLoadable<Character> {
+  characters: Character[];
+}
 
 // Can import the whole thing if you want
-export const signupSlice = createSlice({
-  name: 'character',
+export const charactersSlice = createSlice({
+  name: 'characters',
   // `createSlice` will infer the state type from the `initialState` argument
-  initialState,
+  initialState: charactersAdapter.getInitialState(),
   reducers: {
-    setFormData: (state, action: PayloadAction<Partial<Character>>) => {
-      state = { ...state, ...action.payload };
-      return state;
+    charactersLoading: (state, action: PayloadAction<AsyncLoadable<Character>>) => {
+      //state.
     }
   }
 });
 
-export const { setFormData } = signupSlice.actions;
-export default signupSlice.reducer;
+export const { charactersLoading } = charactersSlice.actions;
+export default charactersSlice.reducer;
