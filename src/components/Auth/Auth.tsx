@@ -1,4 +1,5 @@
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
+
 import { supabase } from '../../services/supabase.service';
 import MainColumn from '../MainColumn/MainColumn';
 

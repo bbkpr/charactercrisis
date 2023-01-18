@@ -5,7 +5,7 @@ import characterReducer from './characterSlice';
 import type { PreloadedState } from '@reduxjs/toolkit';
 
 // Create the root reducer separately so we can extract the RootState type
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   character: characterReducer
 });
 

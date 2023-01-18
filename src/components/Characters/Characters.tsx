@@ -1,20 +1,39 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '../../services/supabase.service';
+import { useEffect } from 'react';
+import { Table } from 'react-bootstrap';
+
+import { loadCharacters } from '../../services/characters.service';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import MainColumn from '../MainColumn/MainColumn';
 
 function Characters() {
-  const [characters, setCharacters] = useState([]);
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    const loadCharacters = async () => {
-      const { data } = (await supabase.from('character').select('*')) as any;
-      setCharacters(data);
-    };
+    loadCharacters(dispatch);
+  }, [dispatch]);
+  const characters = useAppSelector((s) => s.character);
 
-    loadCharacters();
-  }, []);
-
-  return <MainColumn title={'Characters'}>{characters.map((d) => d.name).join(', ')}</MainColumn>;
+  return (
+    <MainColumn title={'Characters'}>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          {characters.map((d) => (
+            <tr key={d.id}>
+              <td>{d.name}</td>
+              <td>
+                <a href={d.reference_link}>Wiki</a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </MainColumn>
+  );
 }
 
 export default Characters;

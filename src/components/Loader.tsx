@@ -1,4 +1,5 @@
 import cx from 'classnames';
+
 const blueSpinner = require('../images/blue-spinner.gif');
 export interface LoaderProps {
   className?: string;
