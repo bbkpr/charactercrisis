@@ -38,7 +38,8 @@ export const loadCharacters = async (dispatch: AppDispatch) => {
         )
       `
         )
-        .order('stat_id', { foreignTable: 'character_stat' })) as EntitiesData<Character>
+        .order('stat_id', { foreignTable: 'character_stat' })
+        .order('name')) as EntitiesData<Character>
     )
   );
 };

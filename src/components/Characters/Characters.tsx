@@ -38,7 +38,7 @@ function Characters() {
                 </td>
                 <td>
                   <Row>
-                    <Col sm={5}>
+                    <Col sm={4}>
                       <Accordion
                         className="stats-accordion"
                         defaultActiveKey={stats.length ? stats.map((s) => s.name) : []}
