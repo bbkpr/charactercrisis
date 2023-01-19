@@ -1,26 +1,21 @@
-// install (please make sure versions match peerDependencies)
-// yarn add @nivo/core @nivo/radar
 import { ResponsiveRadar } from '@nivo/radar';
 
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
-export const StatRadar = ({ data /* see data tab */ }) => (
+// Make sure parent container has a defined height
+export const StatRadar = ({ data, character_name }) => (
   <ResponsiveRadar
+    blendMode="multiply"
+    colors={{ scheme: 'dark2' }}
+    isInteractive={false}
     data={data}
-    keys={['character']}
-    indexBy="stat"
-    margin={{ top: 70, right: 80, bottom: 40, left: 80 }}
-    gridLabelOffset={36}
-    enableDotLabel={true}
+    dotBorderWidth={2}
+    dotColor={{ theme: 'background' }}
     dotLabelYOffset={-16}
     dotSize={10}
-    dotColor={{ theme: 'background' }}
-    dotBorderWidth={2}
-    colors={{ scheme: 'dark2' }}
-    blendMode="multiply"
+    enableDotLabel={true}
+    gridLabelOffset={36}
+    indexBy="stat"
+    keys={[character_name]}
+    margin={{ top: 48, right: 0, bottom: 48, left: 0 }}
     motionConfig="wobbly"
   />
 );

@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 
 function Layout() {
   return (
-    <Container>
+    <Container fluid>
       <Row>
         <Col>
           <Outlet />

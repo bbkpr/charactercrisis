@@ -8,6 +8,7 @@ import userEvent from '@testing-library/user-event';
 
 import charactersReducer from '../state/charactersSlice';
 import statsReducer from '../state/statsSlice';
+import uiReducer from '../state/uiSlice';
 
 import type { RenderOptions } from '@testing-library/react';
 import type { AppStore, RootState } from '../state/store';
@@ -37,7 +38,10 @@ export const renderWithProviderAndRouter = (
   {
     preloadedState = {},
     // Automatically create a store instance if no store was passed in
-    store = configureStore({ reducer: { characters: charactersReducer, stats: statsReducer }, preloadedState }),
+    store = configureStore({
+      reducer: { characters: charactersReducer, stats: statsReducer, ui: uiReducer },
+      preloadedState
+    }),
     routePath = '/',
     ...renderOptions
   }: ExtendedRenderOptionsWithRouter = {}
