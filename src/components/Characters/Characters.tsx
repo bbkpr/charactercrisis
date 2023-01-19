@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Table } from 'react-bootstrap';
+import { Accordion, Col, Row, Table } from 'react-bootstrap';
 
 import { loadCharacters, loadStats } from '../../services/characters.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
@@ -13,17 +13,14 @@ function Characters() {
     loadStats(dispatch);
   }, [dispatch]);
   const characters = useAppSelector((s) => s.characters);
-  const ui = useAppSelector((s) => s.ui);
-
+  const stats = useAppSelector((s) => s.stats);
   return (
     <MainColumn title={'Characters'}>
-      <Table striped bordered hover>
+      <Table striped bordered hover className="stats-table">
         <thead>
           <tr>
             <th>Name</th>
             <th>Stats</th>
-            <th>Graph</th>
-            <th>Reference</th>
           </tr>
         </thead>
         <tbody>
@@ -34,25 +31,37 @@ function Characters() {
             }));
             return (
               <tr key={ch.id}>
-                <td>{ch.name}</td>
                 <td>
-                  <ul>
-                    {ch.character_stat.map((cs) => (
-                      <li key={cs.stat_id}>
-                        {cs.stat.name}: {cs.value}
-                      </li>
-                    ))}
-                  </ul>
+                  <a href={ch.reference_link} target="_blank">
+                    {ch.name}
+                  </a>
                 </td>
                 <td>
-                  {ui.openStatGraphs[ch.id] ? (
-                    <div className="radar-wrap">
-                      <StatRadar character_name={ch.name} data={statsData} />
-                    </div>
-                  ) : null}
-                </td>
-                <td>
-                  <a href={ch.reference_link}>Wiki</a>
+                  <Row>
+                    <Col sm={5}>
+                      <Accordion
+                        className="stats-accordion"
+                        defaultActiveKey={stats.length ? stats.map((s) => s.name) : []}
+                        alwaysOpen
+                      >
+                        {ch.character_stat.map((cs) => (
+                          <Accordion.Item eventKey={cs.stat.name} key={cs.stat.name}>
+                            <Accordion.Header>
+                              {cs.stat.name}: {cs.value}
+                            </Accordion.Header>
+                            <Accordion.Body>{cs.comments}</Accordion.Body>
+                          </Accordion.Item>
+                        ))}
+                      </Accordion>
+                    </Col>
+                    <Col>
+                      {ch && ch.character_stat.length ? (
+                        <div className="radar-wrap">
+                          <StatRadar character_name={ch.name} data={statsData} />
+                        </div>
+                      ) : null}
+                    </Col>
+                  </Row>
                 </td>
               </tr>
             );

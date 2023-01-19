@@ -118,3 +118,15 @@ hr {
   height: 500px;
   width: 600px;
 }
+
+.stats-accordion {
+  //width: 420px;
+
+  .accordion-button {
+    color: #ccc;
+    &:not(.collapsed) {
+      background-color: #333;
+      color: #fff;
+    }
+  }
+}

@@ -10,12 +10,19 @@ export const uiSlice = createSlice({
   name: 'ui',
   initialState: { openStatGraphs: [] } as UiState,
   reducers: {
-    setOpenStatGraphs: (state, action: PayloadAction<SetUiOpenStatGraph>) => {
-      const osg = state.openStatGraphs.filter((g) => g !== action.payload.character_id);
-      state.openStatGraphs = osg;
+    /**
+     * @param state UiState
+     * @param action character_id
+     */
+    toggleStatGraph: (state, action: PayloadAction<number>) => {
+      if (state.openStatGraphs.includes(action.payload)) {
+        state.openStatGraphs = state.openStatGraphs.filter((g) => g !== action.payload);
+      } else {
+        state.openStatGraphs.push(action.payload);
+      }
     }
   }
 });
 
-export const { setOpenStatGraphs } = uiSlice.actions;
+export const { toggleStatGraph } = uiSlice.actions;
 export default uiSlice.reducer;
