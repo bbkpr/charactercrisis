@@ -5,10 +5,11 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import SupabaseAuth from './components/Auth/Auth';
-import Characters from './components/Characters/Characters';
 import Layout from './components/Layout';
 import CharacterDetails from './components/CharacterDetails/CharacterDetails';
 import Games from './components/Games/Games';
+import Characters from './components/Characters/Characters';
+import CharactersGrid from './components/Characters/CharactersGrid';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/auth" element={<SupabaseAuth />} />
         <Route path="/characters" element={<Characters />} />
         <Route path="/characters/:character_id" element={<CharacterDetails />} />
+        <Route path="/charactersgrid" element={<CharactersGrid />} />
         <Route path="/games" element={<Games />} />
         <Route path="/*" element={<Characters />} />
       </Route>

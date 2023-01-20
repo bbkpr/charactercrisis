@@ -9,15 +9,18 @@ function Layout() {
   return (
     <>
       <Navbar sticky="top" variant="dark" bg="dark">
-        <Container>
+        <Container fluid>
           <Navbar.Brand as={Link} to="/">
-            Character Crisis
+            <span className="text-lg">Character Crisis</span>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/characters">
                 Characters
+              </Nav.Link>
+              <Nav.Link as={Link} to="/charactersgrid">
+                Characters (Grid)
               </Nav.Link>
               <Nav.Link as={Link} to="/games">
                 Games
