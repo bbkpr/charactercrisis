@@ -24,7 +24,8 @@ export const loadGames = async (dispatch: AppDispatch) => {
         )
       `
         )
-        .order('name')) as EntitiesData<Game>
+        .order('name')
+        .order('name', { foreignTable: 'character' })) as EntitiesData<Game>
     )
   );
 };
