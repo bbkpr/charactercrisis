@@ -16,7 +16,7 @@ jobs:
       REACT_APP_SUPABASE_URL: '${{ secrets.REACT_APP_SUPABASE_URL }}'
     steps:
       - uses: actions/checkout@v2
-      - run: npm i -g react-scripts
+      - run: npm i -g react-scripts typescript
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
