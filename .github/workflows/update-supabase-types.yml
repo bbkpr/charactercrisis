@@ -1,7 +1,5 @@
 name: Update Supabase database types
 on:
-  schedule:
-    - cron: '*/60 * * * *'
   workflow_dispatch:
 
 jobs:
