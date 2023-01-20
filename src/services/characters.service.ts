@@ -17,6 +17,7 @@ export const loadCharacters = async (dispatch: AppDispatch) => {
         description,
         created_at,
         updated_at,
+        game_id,
         game (
           id,
           name,
@@ -39,6 +40,7 @@ export const loadCharacters = async (dispatch: AppDispatch) => {
       `
         )
         .order('stat_id', { foreignTable: 'character_stat' })
+        .order('game_id')
         .order('name')) as EntitiesData<Character>
     )
   );

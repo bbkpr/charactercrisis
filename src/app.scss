@@ -23,6 +23,10 @@ h6 {
   bottom: 0.5rem !important;
 }
 
+a {
+  text-decoration: none;
+}
+
 hr {
   width: 98.5%;
 }
@@ -115,13 +119,11 @@ hr {
 
 .radar-wrap {
   background-color: #fff !important;
-  height: 500px;
-  width: 600px;
+  height: 20em;
+  width: 26em;
 }
 
 .stats-accordion {
-  //width: 420px;
-
   .accordion-button {
     color: #ccc;
     &:not(.collapsed) {
@@ -129,4 +131,20 @@ hr {
       color: #fff;
     }
   }
+}
+
+.characters-name-column {
+  width: 13em;
+}
+
+.characters-game-column {
+  width: 8em;
+}
+
+.text-sm {
+  font-size: 0.75rem;
+}
+
+.text-light {
+  color: #bbb !important;
 }

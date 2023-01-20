@@ -1,3 +1,6 @@
+import { Character } from './character';
 import { Entity } from './entity';
 
-export interface Game extends Entity {}
+export interface Game extends Entity {
+  character: Character[];
+}

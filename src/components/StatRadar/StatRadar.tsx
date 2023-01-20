@@ -17,5 +17,6 @@ export const StatRadar = ({ data, character_name }) => (
     keys={[character_name]}
     margin={{ top: 48, right: 0, bottom: 48, left: 0 }}
     motionConfig="wobbly"
+    maxValue={100}
   />
 );
