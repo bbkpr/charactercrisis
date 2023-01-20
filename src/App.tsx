@@ -1,30 +1,24 @@
 import './app.scss';
-
 import 'reflect-metadata';
-import React, { useEffect } from 'react';
-import { useCookies } from 'react-cookie';
+
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { someApi } from './apis/someApi';
-import Layout from './pages/Layout';
-import UnderConstruction from './pages/UnderConstruction';
+import SupabaseAuth from './components/Auth/Auth';
 import Characters from './components/Characters/Characters';
+import Layout from './components/Layout';
+import CharacterDetails from './components/CharacterDetails/CharacterDetails';
+import Games from './components/Games/Games';
 
 function App() {
-  const [cookies] = useCookies();
-  useEffect(() => {
-    const hasToken = cookies.token != null && cookies.token.length > 0;
-    if (hasToken) {
-      someApi.defaults.headers.common['Authorization'] = `Bearer ${cookies.token}`;
-    } else {
-      someApi.defaults.headers.common['Authorization'] = '';
-    }
-  }, [cookies]);
   return (
     <Routes>
       <Route element={<Layout />}>
+        <Route path="/auth" element={<SupabaseAuth />} />
         <Route path="/characters" element={<Characters />} />
-        <Route path="/*" element={<UnderConstruction />} />
+        <Route path="/characters/:character_id" element={<CharacterDetails />} />
+        <Route path="/games" element={<Games />} />
+        <Route path="/*" element={<Characters />} />
       </Route>
     </Routes>
   ) as React.ReactElement;

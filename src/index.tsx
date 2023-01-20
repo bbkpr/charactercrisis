@@ -1,19 +1,18 @@
 import './index.scss';
 
-import React from 'react';
-import { CookiesProvider } from 'react-cookie';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
+import { setupStore } from './state/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const store = setupStore();
 root.render(
-  <React.StrictMode>
-    <CookiesProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </CookiesProvider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );

@@ -1,4 +1,17 @@
 @import './variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Ubuntu:wght@400;700&display=swap');
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Ubuntu', sans-serif;
+}
 
 .absolute-bottom-1 {
   position: absolute !important;
@@ -8,6 +21,10 @@
 .absolute-bottom-2 {
   position: absolute !important;
   bottom: 0.5rem !important;
+}
+
+a {
+  text-decoration: none;
 }
 
 hr {
@@ -25,7 +42,7 @@ hr {
 }
 
 // See https://codepen.io/saeedalipoor/pen/NPyeog (left/right are reversed)
-[class*="icon-arrow"] {
+[class*='icon-arrow'] {
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -39,43 +56,43 @@ hr {
 }
 
 // Examples: icon-arrow1-right-up, icon-arrow1-left
-[class*="icon-arrow1"]{
-  width: .75em;
-  height: .75em;
+[class*='icon-arrow1'] {
+  width: 0.75em;
+  height: 0.75em;
   border-width: 2.75px 2.75px 0 0;
   border-style: solid;
-  &:before{
+  &:before {
     right: 0;
     top: -1.5px;
     position: absolute;
     height: 2.25px;
     box-shadow: inset 0 0 0 32px;
     transform: rotate(-45deg);
-    width: .75em;
+    width: 0.75em;
     transform-origin: right top;
   }
-  &[class*="-right"]{
+  &[class*='-right'] {
     transform: rotate(45deg);
-    &[class*="-up"]{
+    &[class*='-up'] {
       transform: none;
     }
-    &[class*="-down"]{
+    &[class*='-down'] {
       transform: rotate(90deg);
     }
   }
-  &[class*="-left"]{
+  &[class*='-left'] {
     transform: rotate(-135deg);
-    &[class*="-up"]{
+    &[class*='-up'] {
       transform: rotate(-90deg);
     }
-    &[class*="-down"]{
+    &[class*='-down'] {
       transform: rotate(180deg);
     }
   }
-  &[class*="-up"]{
+  &[class*='-up'] {
     transform: rotate(-45deg);
   }
-  &[class*="-down"]{
+  &[class*='-down'] {
     transform: rotate(135deg);
   }
 }
@@ -98,4 +115,42 @@ hr {
     visibility: visible;
     display: block;
   }
+}
+
+.radar-wrap {
+  background-color: #fff !important;
+  height: 20em;
+  width: 26em;
+
+  &-lg {
+    background-color: #fff !important;
+    height: 30em;
+    width: 39em;
+  }
+}
+
+.stats-accordion {
+  .accordion-button {
+    color: #ccc;
+    &:not(.collapsed) {
+      background-color: #333;
+      color: #fff;
+    }
+  }
+}
+
+.characters-name-column {
+  width: 13em;
+}
+
+.characters-game-column {
+  width: 8em;
+}
+
+.text-sm {
+  font-size: 0.75rem;
+}
+
+.text-light {
+  color: #bbb !important;
 }
