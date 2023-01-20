@@ -18,9 +18,9 @@ function Characters() {
     <MainColumn>
       <Row>
         <Col>
-          <h5>
+          <h6>
             <Link to={'/characters'}>Characters</Link>
-          </h5>
+          </h6>
           <Table striped bordered hover className="stats-table">
             <thead>
               <tr>

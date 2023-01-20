@@ -27,11 +27,11 @@ function CharacterDetails() {
   return (
     char != null && (
       <MainColumn>
-        <h5>
+        <h6>
           <Link to={'/characters'}>Characters</Link>
           {' > '} <Link to={`/games/${char.game_id}`}>{char.game.name}</Link>
           {` > ${char.name}`}
-        </h5>
+        </h6>
         <Row>
           <Col sm={4}>
             <Accordion
@@ -69,7 +69,7 @@ function CharacterDetails() {
               </Card.Body>
             </Card>
             {char.character_stat.length ? (
-              <div className="radar-wrap">
+              <div className="radar-wrap-lg mt-2">
                 <StatRadar character_name={char.name} data={statsData} />
               </div>
             ) : null}

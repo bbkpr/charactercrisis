@@ -121,6 +121,12 @@ hr {
   background-color: #fff !important;
   height: 20em;
   width: 26em;
+
+  &-lg {
+    background-color: #fff !important;
+    height: 30em;
+    width: 39em;
+  }
 }
 
 .stats-accordion {

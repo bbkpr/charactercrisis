@@ -16,9 +16,9 @@ function Games() {
     <MainColumn>
       <Row>
         <Col>
-          <h5>
+          <h6>
             <Link to={'/games'}>Games</Link>
-          </h5>
+          </h6>
           <Table striped bordered hover className="games-table">
             <thead>
               <tr>
