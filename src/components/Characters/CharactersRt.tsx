@@ -8,9 +8,13 @@ import { loadCharacters, loadStats } from '../../services/characters.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import MainColumn from '../MainColumn/MainColumn';
 import RtTable from '../RtTable/RtTable';
-import { StatRadar } from '../StatRadar/StatRadar';
 
+/**
+ * TODO: Add column defs
+ * @see https://github.com/TanStack/table/blob/v7/examples/kitchen-sink/src/App.js#L533
+ */
 const charColumns: Column<Character>[] = [];
+
 function Characters() {
   const dispatch = useAppDispatch();
   useEffect(() => {
