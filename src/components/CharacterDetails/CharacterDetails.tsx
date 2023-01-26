@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Accordion, Card, Col, Row } from 'react-bootstrap';
+import { Accordion, Col, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 
 import { loadCharacters, loadStats } from '../../services/characters.service';
@@ -33,7 +33,7 @@ function CharacterDetails() {
           {` > ${char.name}`}
         </h6>
         <Row>
-          <Col sm={4}>
+          <Col sm={6}>
             <Accordion
               className="stats-accordion"
               defaultActiveKey={char.character_stat.map((s) => s.stat.name)}
@@ -50,29 +50,23 @@ function CharacterDetails() {
             </Accordion>
           </Col>
           <Col>
-            <Card>
-              <Card.Body>
-                <Card.Title>{char.name}</Card.Title>
-                <Card.Subtitle className="mb-1 text-light">{char.game.name}</Card.Subtitle>
-                <Card.Text className="mb-1">
-                  <div>{char.description}</div>
-                  <div className="mt-1 text-sm">
-                    Description from{' '}
-                    <a href="https://wiki.gbl.gg/" target="_blank" rel="noreferrer">
-                      Mizuumi
-                    </a>
-                  </div>
-                </Card.Text>
-                <Card.Link href={char.reference_link} target="_blank" rel="noreferrer">
+            <div className="character-details-card">
+              <h3 className="mb-1">{char.name}</h3>
+              <h6 className="mb-1 text-light">
+                <Link to={`/games/${char.game_id}`}>{char.game.name}</Link>
+              </h6>
+              <div className="mb-1">{char.description}</div>
+              <div className="mb-0">
+                <a href={char.reference_link} target="_blank" rel="noreferrer">
                   Wiki
-                </Card.Link>
-              </Card.Body>
-            </Card>
-            {char.character_stat.length ? (
-              <div className="radar-wrap-lg mt-2">
-                <StatRadar character_name={char.name} data={statsData} />
+                </a>
               </div>
-            ) : null}
+              {char.character_stat.length ? (
+                <div className="radar-wrap mt-2">
+                  <StatRadar character_name={char.name} data={statsData} />
+                </div>
+              ) : null}
+            </div>
           </Col>
         </Row>
       </MainColumn>
