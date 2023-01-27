@@ -4,10 +4,15 @@ import { Link } from 'react-router-dom';
 
 import { loadCharacters, loadStats } from '../../services/characters.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
-import { normalizeStatScore } from '../../utils/utils';
+import { letterGrade, normalizeStatScore } from '../../utils/utils';
 import { AboutBlurb } from '../About/About';
 import MainColumn from '../MainColumn/MainColumn';
 import { StatRadar } from '../StatRadar/StatRadar';
+
+const gradeValue = (value: number) => {
+  const grade = letterGrade(value);
+  return <div className={`grade-${grade.toLocaleLowerCase()}`}>{grade}</div>;
+};
 
 function Characters() {
   const dispatch = useAppDispatch();
@@ -62,7 +67,7 @@ function Characters() {
                             {ch.character_stat.map((cs) => (
                               <Accordion.Item eventKey={cs.stat.name} key={cs.stat.name}>
                                 <Accordion.Header>
-                                  {cs.stat.name}: {cs.value}
+                                  {cs.stat.name}:&nbsp;{gradeValue(cs.value)}
                                 </Accordion.Header>
                                 <Accordion.Body>{cs.comments}</Accordion.Body>
                               </Accordion.Item>

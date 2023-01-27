@@ -15,7 +15,8 @@ export function AboutBlurb() {
       <p>
         Alpha 1 features include Lists, Descriptions, and Stat details of Characters from various games. Alpha 2 will
         expand upon this by allowing selection of a character, showing their detailed profile next to a list of all
-        other characters from selected game(s), ordered by a selected score similarity
+        other characters from selected game(s), ordered by a selected score similarity. Future alphas will expand upon
+        stat comparisons, and Beta will focus on design and UX improvements.
       </p>
     </div>
   );

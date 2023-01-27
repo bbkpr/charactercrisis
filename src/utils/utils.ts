@@ -49,9 +49,19 @@ export const normalizeStatScore = (value: number) => {
 /**
  * Convert 1 - 5 stat scores to display _letters_ for values on  `StatRadar`.
  *
- * @param value Normalized Stat Score (1 - 5)
+ * @param nStatScore Normalized Stat Score (1 - 5)
  * @returns The normalized stat score as a letter grade (S - D or U for unknown)
  */
-export const normalizedLetterGrade = (value: number) => {
-  return value === 5 ? 'S' : value === 4 ? 'A' : value === 3 ? 'B' : value === 2 ? 'C' : value === 1 ? 'D' : 'U';
+export const normalizedLetterGrade = (nStatScore: number) => {
+  return nStatScore === 5
+    ? 'S'
+    : nStatScore === 4
+    ? 'A'
+    : nStatScore === 3
+    ? 'B'
+    : nStatScore === 2
+    ? 'C'
+    : nStatScore === 1
+    ? 'D'
+    : 'U';
 };

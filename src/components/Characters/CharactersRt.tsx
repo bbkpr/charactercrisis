@@ -13,7 +13,7 @@ const columnHelper = createColumnHelper<Character>();
 
 const gradeCell = (info: CellContext<Character, number>) => {
   const grade = letterGrade(info.cell?.getValue());
-  return <div className={`grade-${grade.toLocaleLowerCase()}`}>{grade}</div>;
+  return <div className={`grade-${grade.toLocaleLowerCase()}`}>{grade !== 'U' ? grade : '-'}</div>;
 };
 
 const statAccessor = (row: Character, stat_id: number) =>
@@ -103,7 +103,7 @@ function Characters() {
       <Row>
         <Col>
           <h6>
-            <Link to={'/charactersrt'}>Characters (Table B)</Link>
+            <Link to={'/charactersrt'}>Characters (Table)</Link>
           </h6>
           <div className="p-2">
             <Table striped bordered hover className="stats-table">

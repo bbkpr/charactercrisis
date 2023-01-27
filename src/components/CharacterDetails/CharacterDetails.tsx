@@ -4,8 +4,14 @@ import { Link, useParams } from 'react-router-dom';
 
 import { loadCharacters, loadStats } from '../../services/characters.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { letterGrade, normalizeStatScore } from '../../utils/utils';
 import MainColumn from '../MainColumn/MainColumn';
 import { StatRadar } from '../StatRadar/StatRadar';
+
+const gradeValue = (value: number) => {
+  const grade = letterGrade(value);
+  return <div className={`grade-${grade.toLocaleLowerCase()}`}>{grade}</div>;
+};
 
 function CharacterDetails() {
   const { character_id } = useParams();
@@ -21,7 +27,7 @@ function CharacterDetails() {
     char != null
       ? char.character_stat.map((s) => ({
           stat: s.stat.name,
-          [char.name]: s.value
+          [char.name]: normalizeStatScore(s.value)
         }))
       : [];
   return (
@@ -42,7 +48,7 @@ function CharacterDetails() {
               {char.character_stat.map((cs) => (
                 <Accordion.Item eventKey={cs.stat.name} key={cs.stat.name}>
                   <Accordion.Header>
-                    {cs.stat.name}: {cs.value}
+                    {cs.stat.name}:&nbsp;{gradeValue(cs.value)}
                   </Accordion.Header>
                   <Accordion.Body>{cs.comments}</Accordion.Body>
                 </Accordion.Item>

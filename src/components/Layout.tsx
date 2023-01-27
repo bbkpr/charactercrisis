@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Nav, Navbar } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -19,20 +19,23 @@ function Layout() {
               <Nav.Link as={Link} to="/characters">
                 Characters
               </Nav.Link>
+              <Nav.Link as={Link} to="/charactersrt">
+                Characters (Table)
+              </Nav.Link>
               <Nav.Link as={Link} to="/games">
                 Games
               </Nav.Link>
               <Nav.Link as={Link} to="/about">
                 About
               </Nav.Link>
-              <NavDropdown title="Experiments" id="basic-nav-dropdown">
+              {/* <NavDropdown title="Experiments" id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/charactersgrid">
                   Characters (AG Grid)
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/charactersrt">
                   Characters (React Table)
                 </NavDropdown.Item>
-              </NavDropdown>
+              </NavDropdown> */}
             </Nav>
           </Navbar.Collapse>
         </Container>
