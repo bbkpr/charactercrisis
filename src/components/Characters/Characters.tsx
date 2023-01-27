@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 import { loadCharacters, loadStats } from '../../services/characters.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { normalizeStatScore } from '../../utils/utils';
+import { AboutBlurb } from '../About/About';
 import MainColumn from '../MainColumn/MainColumn';
 import { StatRadar } from '../StatRadar/StatRadar';
 
@@ -18,6 +20,7 @@ function Characters() {
     <MainColumn>
       <Row>
         <Col>
+          <AboutBlurb />
           <h6>
             <Link to={'/characters'}>Characters</Link>
           </h6>
@@ -33,7 +36,7 @@ function Characters() {
               {characters.map((ch) => {
                 const statsData = ch.character_stat.map((s) => ({
                   stat: s.stat.name,
-                  [ch.name]: s.value
+                  [ch.name]: normalizeStatScore(s.value)
                 }));
                 return (
                   <tr key={ch.id}>

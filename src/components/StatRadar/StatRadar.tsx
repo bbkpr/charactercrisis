@@ -1,6 +1,7 @@
 import { Radar } from '@nivo/radar';
+import { normalizedLetterGrade } from '../../utils/utils';
 
-export const StatRadar = ({ data, character_name, width = 520, height = 320 }) => (
+export const StatRadar = ({ data, character_name, width = 435, height = 320 }) => (
   <Radar
     blendMode="multiply"
     colors={{ scheme: 'dark2' }}
@@ -17,7 +18,8 @@ export const StatRadar = ({ data, character_name, width = 520, height = 320 }) =
     keys={[character_name]}
     margin={{ top: 48, right: 0, bottom: 48, left: 0 }}
     motionConfig="wobbly"
-    maxValue={100}
+    maxValue={5}
+    valueFormat={(v) => normalizedLetterGrade(v)}
     width={width}
   />
 );

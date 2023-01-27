@@ -11,6 +11,7 @@ import Games from './components/Games/Games';
 import Characters from './components/Characters/Characters';
 import CharactersGrid from './components/Characters/CharactersGrid';
 import CharactersRt from './components/Characters/CharactersRt';
+import AboutPage from './components/About/About';
 
 function App() {
   return (
@@ -19,9 +20,10 @@ function App() {
         <Route path="/auth" element={<SupabaseAuth />} />
         <Route path="/characters" element={<Characters />} />
         <Route path="/characters/:character_id" element={<CharacterDetails />} />
+        <Route path="/games" element={<Games />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/charactersgrid" element={<CharactersGrid />} />
         <Route path="/charactersrt" element={<CharactersRt />} />
-        <Route path="/games" element={<Games />} />
         <Route path="/*" element={<Characters />} />
       </Route>
     </Routes>

@@ -13,65 +13,71 @@ const columnHelper = createColumnHelper<Character>();
 
 const gradeCell = (info: CellContext<Character, number>) => {
   const grade = letterGrade(info.cell?.getValue());
-  return <div className={`grade-${grade}`}>{grade}</div>;
+  return <div className={`grade-${grade.toLocaleLowerCase()}`}>{grade}</div>;
 };
+
+const statAccessor = (row: Character, stat_id: number) =>
+  row.character_stat.find((cs) => cs.stat_id === stat_id)?.value;
 
 const columns = [
   columnHelper.accessor('name', {
-    id: 'name'
+    id: 'name',
+    header: 'Name'
   }),
   columnHelper.accessor('description', {
-    id: 'description'
+    id: 'description',
+    header: 'Description'
   }),
   columnHelper.accessor('game.name', {
-    id: 'game_name'
+    id: 'game_name',
+    header: 'Game'
   }),
-  columnHelper.accessor((row) => row.character_stat.find((cs) => cs.stat_id === 1)?.value, {
+  columnHelper.accessor((row) => statAccessor(row, 1), {
     id: 'rushdown',
     cell: gradeCell,
     header: 'Rushdown'
   }),
-  columnHelper.accessor((row) => row.character_stat.find((cs) => cs.stat_id === 2)?.value, {
+  columnHelper.accessor((row) => statAccessor(row, 2), {
     id: 'zoning',
     cell: gradeCell,
     header: 'Zoning'
   }),
-  columnHelper.accessor((row) => row.character_stat.find((cs) => cs.stat_id === 3)?.value, {
+  columnHelper.accessor((row) => statAccessor(row, 3), {
     id: 'damage',
     cell: gradeCell,
     header: 'Damage'
   }),
-  columnHelper.accessor((row) => row.character_stat.find((cs) => cs.stat_id === 4)?.value, {
+  columnHelper.accessor((row) => statAccessor(row, 4), {
     id: 'footsies',
     cell: gradeCell,
     header: 'Footsies'
   }),
-  columnHelper.accessor((row) => row.character_stat.find((cs) => cs.stat_id === 5)?.value, {
+  columnHelper.accessor((row) => statAccessor(row, 5), {
     id: 'meter',
     cell: gradeCell,
     header: 'Meter'
   }),
-  columnHelper.accessor((row) => row.character_stat.find((cs) => cs.stat_id === 6)?.value, {
+  columnHelper.accessor((row) => statAccessor(row, 6), {
     id: 'defense',
     cell: gradeCell,
     header: 'Defense'
   }),
-  columnHelper.accessor((row) => row.character_stat.find((cs) => cs.stat_id === 7)?.value, {
+  columnHelper.accessor((row) => statAccessor(row, 7), {
     id: 'mobility',
     cell: gradeCell,
     header: 'Mobility'
   }),
-  columnHelper.accessor((row) => row.character_stat.find((cs) => cs.stat_id === 8)?.value, {
+  columnHelper.accessor((row) => statAccessor(row, 8), {
     id: 'easeofuse',
     cell: gradeCell,
     header: 'Ease of Use'
   }),
-  columnHelper.accessor((row) => row.character_stat.find((cs) => cs.stat_id === 9)?.value, {
+  columnHelper.accessor((row) => statAccessor(row, 9), {
     id: 'mixups',
     cell: gradeCell,
     header: 'Mixups'
   }),
-  columnHelper.accessor((row) => row.character_stat.find((cs) => cs.stat_id === 10)?.value, {
+  columnHelper.accessor((row) => statAccessor(row, 10), {
     id: 'okizeme',
     cell: gradeCell,
     header: 'Okizeme'
