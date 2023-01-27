@@ -23,3 +23,8 @@ export const round = (num: number, decimals = 2): number => {
 
 export const isTruthy = (value: string | number | boolean) =>
   value != null && [true, 'true', 1, '1'].indexOf(value) > -1;
+
+/** Turn a 0 - 100 score into a letter grade in [S, A, B, C, D] */
+export const letterGrade = (value: number) => {
+  return value >= 80 ? 'S' : value >= 60 ? 'A' : value >= 40 ? 'B' : value >= 20 ? 'C' : 'D';
+};

@@ -3,7 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Character } from '../../models/character';
@@ -12,33 +12,66 @@ import { loadCharacters, loadStats } from '../../services/characters.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import MainColumn from '../MainColumn/MainColumn';
 
+const initialColDefs: ColDef<Character>[] = [
+  { field: 'name', pinned: 'left' },
+  { field: 'description' },
+  { field: 'game.name', headerName: 'Game' },
+  {
+    headerName: 'Rushdown',
+    initialWidth: 110,
+    valueGetter: (c: ValueGetterParams<Character>) => c.data.character_stat.find((cs) => cs.stat_id === 1)?.value
+  },
+  {
+    headerName: 'Zoning',
+    initialWidth: 110,
+    valueGetter: (c: ValueGetterParams<Character>) => c.data.character_stat.find((cs) => cs.stat_id === 2)?.value
+  },
+  {
+    headerName: 'Damage',
+    initialWidth: 110,
+    valueGetter: (c: ValueGetterParams<Character>) => c.data.character_stat.find((cs) => cs.stat_id === 3)?.value
+  },
+  {
+    headerName: 'Footsies',
+    initialWidth: 110,
+    valueGetter: (c: ValueGetterParams<Character>) => c.data.character_stat.find((cs) => cs.stat_id === 4)?.value
+  },
+  {
+    headerName: 'Meter',
+    initialWidth: 110,
+    valueGetter: (c: ValueGetterParams<Character>) => c.data.character_stat.find((cs) => cs.stat_id === 5)?.value
+  },
+  {
+    headerName: 'Defense',
+    initialWidth: 110,
+    valueGetter: (c: ValueGetterParams<Character>) => c.data.character_stat.find((cs) => cs.stat_id === 6)?.value
+  },
+  {
+    headerName: 'Mobility',
+    initialWidth: 110,
+    valueGetter: (c: ValueGetterParams<Character>) => c.data.character_stat.find((cs) => cs.stat_id === 7)?.value
+  },
+  {
+    headerName: 'Ease of Use',
+    initialWidth: 120,
+    valueGetter: (c: ValueGetterParams<Character>) => c.data.character_stat.find((cs) => cs.stat_id === 8)?.value
+  },
+  {
+    headerName: 'Mixups',
+    initialWidth: 110,
+    valueGetter: (c: ValueGetterParams<Character>) => c.data.character_stat.find((cs) => cs.stat_id === 9)?.value
+  },
+  {
+    headerName: 'Okizeme',
+    initialWidth: 110,
+    valueGetter: (c: ValueGetterParams<Character>) => c.data.character_stat.find((cs) => cs.stat_id === 10)?.value
+  }
+];
+
 function CharactersGrid() {
   const dispatch = useAppDispatch();
-  const initialColDefs: ColDef<Character>[] = [
-    { field: 'name', pinned: 'left' },
-    { field: 'description' },
-    { field: 'game.name', headerName: 'Game' }
-  ];
-  [
-    [1, 'Rushdown'],
-    [2, 'Zoning'],
-    [3, 'Damage'],
-    [4, 'Footsies'],
-    [5, 'Meter'],
-    [6, 'Defense'],
-    [7, 'Mobility'],
-    [8, 'Ease of Use'],
-    [9, 'Mixups'],
-    [10, 'Okizeme']
-  ].forEach((s) => {
-    initialColDefs.push({
-      headerName: s[1] as string,
-      valueGetter: (c: ValueGetterParams<Character>) => c.data.character_stat.find((cs) => cs.stat_id === s[0])?.value,
-      initialWidth: 110
-    });
-  });
 
-  const [colDefs] = useState<ColDef<Character>[]>(initialColDefs);
+  const colDefs = useMemo<ColDef<Character>[]>(() => initialColDefs, []);
 
   useEffect(() => {
     loadCharacters(dispatch);

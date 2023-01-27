@@ -22,6 +22,9 @@ function Layout() {
               <Nav.Link as={Link} to="/charactersgrid">
                 Characters (Grid)
               </Nav.Link>
+              <Nav.Link as={Link} to="/charactersrt">
+                Characters (Table B)
+              </Nav.Link>
               <Nav.Link as={Link} to="/games">
                 Games
               </Nav.Link>
