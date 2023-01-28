@@ -5,7 +5,7 @@ import { AppDispatch } from '../state/store';
 import { supabase } from './supabase.service';
 
 export const loadImages = async (dispatch: AppDispatch) => {
-  return dispatch(imagesLoaded((await supabase.from('stat').select('*').order('id')) as EntitiesData<Image>));
+  return dispatch(imagesLoaded((await supabase.from('image').select('*').order('id')) as EntitiesData<Image>));
 };
 
 export const getPublicImageUrl = (fileName: string) => {
