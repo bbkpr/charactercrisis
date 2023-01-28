@@ -157,7 +157,7 @@ hr {
 
 .grade {
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 2em;
   &-s {
     color: #00ccee !important;
   }
@@ -176,4 +176,24 @@ hr {
   &-u {
     color: #bbb !important;
   }
+}
+
+.bg-black {
+  background-color: #000;
+}
+
+.navbar {
+  z-index: 9999;
+}
+
+thead.sticky-top {
+  top: 3.5em;
+}
+
+th {
+  border: 1px solid #333 !important;
+}
+
+.img-fluid-wrap-md {
+  max-width: 10em;
 }

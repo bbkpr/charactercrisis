@@ -16,6 +16,7 @@ export const loadGames = async (dispatch: AppDispatch) => {
         description,
         created_at,
         updated_at,
+        abbreviation,
         character (
           id,
           name,

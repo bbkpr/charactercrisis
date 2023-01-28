@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
-import { Accordion, Col, Row, Table } from 'react-bootstrap';
+import { Accordion, Col, Image, Row, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { loadCharacters, loadStats } from '../../services/characters.service';
+import { getPublicImageUrl, loadImages } from '../../services/images.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { letterGrade, normalizeStatScore } from '../../utils/utils';
 import { AboutBlurb } from '../About/About';
@@ -18,6 +19,7 @@ function Characters() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     loadCharacters(dispatch);
+    loadImages(dispatch);
     loadStats(dispatch);
   }, [dispatch]);
   const characters = useAppSelector((s) => s.characters);
@@ -43,15 +45,26 @@ function Characters() {
                   stat: s.stat.name,
                   [ch.name]: normalizeStatScore(s.value)
                 }));
+                const mainImage = ch.character_image.find((i) => i.image_type === 'main')?.image;
+
                 return (
                   <tr key={ch.id}>
                     <td className="characters-name-column">
-                      <Link to={`/characters/${ch.id}`}>{ch.name}</Link>
-                      &nbsp; (
-                      <a href={ch.reference_link} target="_blank" rel="noreferrer">
-                        wiki
-                      </a>
-                      )
+                      <>
+                        <div>
+                          <Link to={`/characters/${ch.id}`}>{ch.name}</Link>
+                          &nbsp; (
+                          <a href={ch.reference_link} target="_blank" rel="noreferrer">
+                            wiki
+                          </a>
+                          )
+                        </div>
+                        {mainImage && (
+                          <div className="mt-2 img-fluid-wrap-md">
+                            <Image fluid src={getPublicImageUrl(mainImage.path)} alt={mainImage.description} />
+                          </div>
+                        )}
+                      </>
                     </td>
                     <td className="characters-game-column">
                       <Link to={`/games/${ch.game_id}`}>{ch.game.name}</Link>

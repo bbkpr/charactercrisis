@@ -1,4 +1,5 @@
 import { Character } from '../models/character';
+import { Stat } from '../models/stat';
 import { charactersLoaded } from '../state/charactersSlice';
 import { EntitiesData } from '../state/dtos';
 import { statsLoaded } from '../state/statsSlice';
@@ -21,9 +22,24 @@ export const loadCharacters = async (dispatch: AppDispatch) => {
         game (
           id,
           name,
-          description
+          description,
+          abbreviation
         ),
         reference_link,
+        character_image (
+          character_id,
+          image_id,
+          image_type,
+          image (
+            id,
+            name,
+            description,
+            created_at,
+            updated_at,
+            bucket,
+            path
+          )
+        ),
         character_stat (
           character_id,
           comments,
@@ -47,5 +63,5 @@ export const loadCharacters = async (dispatch: AppDispatch) => {
 };
 
 export const loadStats = async (dispatch: AppDispatch) => {
-  return dispatch(statsLoaded((await supabase.from('stat').select('*').order('id')) as EntitiesData<Character>));
+  return dispatch(statsLoaded((await supabase.from('stat').select('*').order('id')) as EntitiesData<Stat>));
 };
