@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Accordion, Col, Image, Row, Table } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 import { loadCharacters, loadStats } from '../../services/characters.service';
@@ -25,6 +26,9 @@ function Characters() {
   const characters = useAppSelector((s) => s.characters);
   return (
     <MainColumn>
+      <Helmet>
+        <title>Character Crisis | Characters</title>
+      </Helmet>
       <Row>
         <Col>
           <AboutBlurb />

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Col, Row, Table } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 import { loadGames } from '../../services/games.service';
@@ -14,6 +15,9 @@ function Games() {
   const games = useAppSelector((s) => s.games);
   return (
     <MainColumn>
+      <Helmet>
+        <title>Character Crisis | Games</title>
+      </Helmet>
       <Row>
         <Col>
           <h6>

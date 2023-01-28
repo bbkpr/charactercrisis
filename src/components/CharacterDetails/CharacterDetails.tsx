@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Accordion, Col, Row } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
 
 import { loadCharacters, loadStats } from '../../services/characters.service';
@@ -33,6 +34,9 @@ function CharacterDetails() {
   return (
     char != null && (
       <MainColumn>
+        <Helmet>
+          <title>Character Crisis | {char.name}</title>
+        </Helmet>
         <h6>
           <Link to={'/characters'}>Characters</Link>
           {' > '} <Link to={`/games/${char.game_id}`}>{char.game.name}</Link>

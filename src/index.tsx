@@ -1,6 +1,7 @@
 import './index.scss';
 
 import ReactDOM from 'react-dom/client';
+import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -14,6 +15,9 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <ScrollToTop />
+      <Helmet>
+        <title>Character Crisis</title>
+      </Helmet>
       <App />
     </BrowserRouter>
   </Provider>

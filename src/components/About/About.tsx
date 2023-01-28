@@ -1,4 +1,5 @@
 import { Col, Row } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import MainColumn from '../MainColumn/MainColumn';
 
@@ -25,6 +26,9 @@ export function AboutBlurb() {
 export default function AboutPage() {
   return (
     <MainColumn>
+      <Helmet>
+        <title>Character Crisis | About</title>
+      </Helmet>
       <Row>
         <Col>
           <h6>

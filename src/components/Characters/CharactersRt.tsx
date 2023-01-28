@@ -1,6 +1,7 @@
 import { CellContext, createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useEffect } from 'react';
 import { Col, Image, Row, Table } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { Character } from '../../models/character';
 import { Game } from '../../models/game';
@@ -126,6 +127,9 @@ function Characters() {
 
   return (
     <MainColumn>
+      <Helmet>
+        <title>Character Crisis | Characters</title>
+      </Helmet>
       <Row>
         <Col>
           <h6>
