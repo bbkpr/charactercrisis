@@ -7,6 +7,7 @@ import { loadCharacters, loadStats } from '../../services/characters.service';
 import { getPublicImageUrl } from '../../services/images.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { letterGrade, normalizeStatScore } from '../../utils/utils';
+import { AboutBlurb } from '../About/About';
 import MainColumn from '../MainColumn/MainColumn';
 import { StatRadar } from '../StatRadar/StatRadar';
 
@@ -30,6 +31,7 @@ function CharactersResp() {
       </Helmet>
       <Row>
         <Col>
+          <AboutBlurb />
           <h6>
             <Link to={'/characters'}>Characters</Link>
           </h6>

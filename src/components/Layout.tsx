@@ -7,13 +7,13 @@ function Layout() {
   const location = useLocation();
   return (
     <>
-      <Navbar sticky="top" variant="dark" bg="dark">
+      <Navbar sticky="top" variant="dark" bg="dark" expand="lg">
         <Navbar.Brand as={Link} to="/">
           <span className="text-lg ms-4">Character Crisis</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav>
+          <Nav className="me-auto text-center">
             <Nav.Link
               as={Link}
               to="/characters"
