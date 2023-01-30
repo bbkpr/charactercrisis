@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { Accordion, Col, Row } from 'react-bootstrap';
+import { Col, Image, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
 
 import { loadCharacters, loadStats } from '../../services/characters.service';
+import { getPublicImageUrl } from '../../services/images.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { letterGrade, normalizeStatScore } from '../../utils/utils';
 import MainColumn from '../MainColumn/MainColumn';
@@ -31,52 +32,67 @@ function CharacterDetails() {
           [char.name]: normalizeStatScore(s.value)
         }))
       : [];
+
+  const mainImage = char.character_image.find((i) => i.image_type === 'main')?.image;
   return (
     char != null && (
       <MainColumn>
         <Helmet>
           <title>Character Crisis | {char.name}</title>
         </Helmet>
-        <h6>
-          <Link to={'/characters'}>Characters</Link>
-          {' > '} <Link to={`/games/${char.game_id}`}>{char.game.name}</Link>
-          {` > ${char.name}`}
-        </h6>
         <Row>
-          <Col sm={6}>
-            <Accordion
-              className="stats-accordion"
-              defaultActiveKey={char.character_stat.map((s) => s.stat.name)}
-              alwaysOpen
-            >
-              {char.character_stat.map((cs) => (
-                <Accordion.Item eventKey={cs.stat.name} key={cs.stat.name}>
-                  <Accordion.Header>
-                    {cs.stat.name}:&nbsp;{gradeValue(cs.value)}
-                  </Accordion.Header>
-                  <Accordion.Body>{cs.comments}</Accordion.Body>
-                </Accordion.Item>
-              ))}
-            </Accordion>
-          </Col>
           <Col>
-            <div className="character-details-card">
-              <h3 className="mb-1">{char.name}</h3>
-              <h6 className="mb-1 text-light">
-                <Link to={`/games/${char.game_id}`}>{char.game.name}</Link>
-              </h6>
-              <div className="mb-1">{char.description}</div>
-              <div className="mb-0">
-                <a href={char.reference_link} target="_blank" rel="noreferrer">
-                  Wiki
-                </a>
-              </div>
-              {char.character_stat.length ? (
-                <div className="radar-wrap mt-2">
-                  <StatRadar character_name={char.name} data={statsData} />
-                </div>
-              ) : null}
-            </div>
+            <h6>
+              <Link to={'/characters'}>Characters</Link> / <Link to={`/characters/${char.id}`}>{char.name}</Link>
+            </h6>
+            <Row key={char.id} className="my-4 px-2 py-2 character-row">
+              <Col sm="4" md="3" className="text-center">
+                <>
+                  <div>
+                    <Link to={`/characters/${char.id}`} className="fs-5">
+                      {char.name}
+                    </Link>
+                    &nbsp;{' '}
+                    <span className="fs-6">
+                      (
+                      <a href={char.reference_link} target="_blank" rel="noreferrer">
+                        wiki
+                      </a>
+                      )
+                    </span>
+                  </div>
+                  <Link className="fs-6" to={`/games/${char.game_id}`}>
+                    {char.game.abbreviation}
+                  </Link>
+                  {mainImage && (
+                    <div className="mt-2 mx-auto img-fluid-wrap-md">
+                      <Image fluid src={getPublicImageUrl(mainImage.path)} alt={mainImage.description} />
+                    </div>
+                  )}
+                  <div>{char.description}</div>
+                  {char && char.character_stat.length ? (
+                    <div className="radar-wrap mx-auto my-3">
+                      <StatRadar character_name={char.name} data={statsData} />
+                    </div>
+                  ) : null}
+                </>
+              </Col>
+              <Col sm="8" md="9">
+                <Row className="justify-content-around">
+                  {char.character_stat.map((cs, idx) => (
+                    <Col xs="6" md={idx < 3 || idx > 6 ? 4 : 3}>
+                      <div className="stat-block text-center py-2 px-2 my-2">
+                        <h6>{cs.stat.name}</h6>
+                        <h4>{gradeValue(cs.value)}</h4>
+                        <div className="stat-block-value">
+                          <div>{cs.comments}</div>
+                        </div>
+                      </div>
+                    </Col>
+                  ))}
+                </Row>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </MainColumn>

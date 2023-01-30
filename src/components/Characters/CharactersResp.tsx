@@ -1,115 +1,19 @@
-import { CellContext, createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useEffect } from 'react';
-import { Col, Image, Row, Table } from 'react-bootstrap';
+import { Col, Image, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import { Character } from '../../models/character';
-import { Game } from '../../models/game';
 
 import { loadCharacters, loadStats } from '../../services/characters.service';
 import { getPublicImageUrl } from '../../services/images.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
-import { letterGrade } from '../../utils/utils';
+import { letterGrade, normalizeStatScore } from '../../utils/utils';
 import MainColumn from '../MainColumn/MainColumn';
+import { StatRadar } from '../StatRadar/StatRadar';
 
-const columnHelper = createColumnHelper<Character>();
-
-const gradeCell = (info: CellContext<Character, number>) => {
-  const grade = letterGrade(info.getValue());
-  return <div className={`grade-${grade.toLocaleLowerCase()}`}>{grade !== 'U' ? grade : '-'}</div>;
+const gradeValue = (value: number) => {
+  const grade = letterGrade(value);
+  return <div className={`grade-${grade.toLocaleLowerCase()}`}>{grade}</div>;
 };
-
-const characterLinkCell = (info: CellContext<Character, Character>) => {
-  const character = info.getValue();
-  const mainImage = character.character_image.find((i) => i.image_type === 'main')?.image;
-  return (
-    <>
-      <div>
-        <Link to={`/characters/${character.id}`}>{character.name}</Link>
-      </div>
-      {mainImage && (
-        <div className="mt-2 img-fluid-wrap-md">
-          <Image fluid src={getPublicImageUrl(mainImage.path)} alt={mainImage.description} />
-        </div>
-      )}
-    </>
-  );
-};
-
-const gameLinkCell = (info: CellContext<Character, Game>) => {
-  const game = info.getValue();
-  return <Link to={`/games/${game.id}`}>{game.abbreviation}</Link>;
-};
-
-const statAccessor = (row: Character, stat_id: number) =>
-  row.character_stat.find((cs) => cs.stat_id === stat_id)?.value;
-
-const columns = [
-  columnHelper.accessor((row) => row, {
-    id: 'name',
-    cell: characterLinkCell,
-    header: 'Name'
-  }),
-  columnHelper.accessor('description', {
-    id: 'description',
-    header: 'Description'
-  }),
-  columnHelper.accessor((row) => row.game, {
-    id: 'game_name',
-    cell: gameLinkCell,
-    header: 'Game'
-  }),
-  columnHelper.accessor((row) => statAccessor(row, 1), {
-    id: 'rushdown',
-    cell: gradeCell,
-    header: 'RSH'
-  }),
-  columnHelper.accessor((row) => statAccessor(row, 2), {
-    id: 'zoning',
-    cell: gradeCell,
-    header: 'ZON'
-  }),
-  columnHelper.accessor((row) => statAccessor(row, 3), {
-    id: 'damage',
-    cell: gradeCell,
-    header: 'DMG'
-  }),
-  columnHelper.accessor((row) => statAccessor(row, 4), {
-    id: 'footsies',
-    cell: gradeCell,
-    header: 'FTS'
-  }),
-  columnHelper.accessor((row) => statAccessor(row, 5), {
-    id: 'meter',
-    cell: gradeCell,
-    header: 'MTR'
-  }),
-  columnHelper.accessor((row) => statAccessor(row, 6), {
-    id: 'defense',
-    cell: gradeCell,
-    header: 'DEF'
-  }),
-  columnHelper.accessor((row) => statAccessor(row, 7), {
-    id: 'mobility',
-    cell: gradeCell,
-    header: 'MOB'
-  }),
-  columnHelper.accessor((row) => statAccessor(row, 8), {
-    id: 'easeofuse',
-    cell: gradeCell,
-    header: 'EAS'
-  }),
-  columnHelper.accessor((row) => statAccessor(row, 9), {
-    id: 'mixups',
-    cell: gradeCell,
-    header: 'MIX'
-  }),
-  columnHelper.accessor((row) => statAccessor(row, 10), {
-    id: 'okizeme',
-    cell: gradeCell,
-    header: 'OKI'
-  })
-];
 
 function CharactersResp() {
   const dispatch = useAppDispatch();
@@ -119,12 +23,6 @@ function CharactersResp() {
   }, [dispatch]);
   const characters = useAppSelector((s) => s.characters);
 
-  const table = useReactTable<Character>({
-    columns,
-    data: characters ? characters : [],
-    getCoreRowModel: getCoreRowModel<Character>()
-  });
-
   return (
     <MainColumn>
       <Helmet>
@@ -133,43 +31,66 @@ function CharactersResp() {
       <Row>
         <Col>
           <h6>
-            <Link to={'/charactersrt'}>Characters (Table)</Link>
+            <Link to={'/characters'}>Characters</Link>
           </h6>
-          <div className="p-2">
-            <Table striped bordered hover className="stats-table">
-              <thead className="sticky-top bg-black">
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <th key={header.id}>
-                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                      </th>
+          {characters.map((ch) => {
+            const statsData = ch.character_stat.map((s) => ({
+              stat: s.stat.name,
+              [ch.name]: normalizeStatScore(s.value)
+            }));
+            const mainImage = ch.character_image.find((i) => i.image_type === 'main')?.image;
+
+            return (
+              <Row key={ch.id} className="my-4 px-2 py-2 character-row">
+                <Col sm="4" md="3" className="text-center">
+                  <>
+                    <div>
+                      <Link to={`/characters/${ch.id}`} className="fs-5">
+                        {ch.name}
+                      </Link>
+                      &nbsp;{' '}
+                      <span className="fs-6">
+                        (
+                        <a href={ch.reference_link} target="_blank" rel="noreferrer">
+                          wiki
+                        </a>
+                        )
+                      </span>
+                    </div>
+                    <Link className="fs-6" to={`/games/${ch.game_id}`}>
+                      {ch.game.abbreviation}
+                    </Link>
+                    {mainImage && (
+                      <div className="mt-2 mx-auto img-fluid-wrap-md">
+                        <Image fluid src={getPublicImageUrl(mainImage.path)} alt={mainImage.description} />
+                      </div>
+                    )}
+                    <div>{ch.description}</div>
+                    {ch && ch.character_stat.length ? (
+                      <div className="radar-wrap mx-auto my-3">
+                        <StatRadar character_name={ch.name} data={statsData} />
+                      </div>
+                    ) : null}
+                  </>
+                </Col>
+                <Col sm="8" md="9">
+                  <Row className="justify-content-around">
+                    {ch.character_stat.map((cs, idx) => (
+                      <Col xs="6" md={idx < 3 || idx > 6 ? 4 : 3}>
+                        <div className="stat-block text-center py-2 px-2 my-2">
+                          <h6>{cs.stat.name}</h6>
+                          <h4>{gradeValue(cs.value)}</h4>
+                          <div className="stat-block-value">
+                            <div>{cs.comments}</div>
+                          </div>
+                        </div>
+                      </Col>
                     ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody>
-                {table.getRowModel().rows.map((row) => (
-                  <tr key={row.id}>
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-              <tfoot>
-                {table.getFooterGroups().map((footerGroup) => (
-                  <tr key={footerGroup.id}>
-                    {footerGroup.headers.map((header) => (
-                      <th key={header.id}>
-                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.footer, header.getContext())}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </tfoot>
-            </Table>
-          </div>
+                  </Row>
+                </Col>
+              </Row>
+            );
+          })}
         </Col>
       </Row>
     </MainColumn>

@@ -8,8 +8,6 @@ import SupabaseAuth from './components/Auth/Auth';
 import Layout from './components/Layout';
 import CharacterDetails from './components/CharacterDetails/CharacterDetails';
 import Games from './components/Games/Games';
-import Characters from './components/Characters/Characters';
-//import CharactersGrid from './components/Characters/CharactersGrid';
 import CharactersRt from './components/Characters/CharactersRt';
 import AboutPage from './components/About/About';
 import CharactersResp from './components/Characters/CharactersResp';
@@ -19,14 +17,12 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/auth" element={<SupabaseAuth />} />
-        <Route path="/characters" element={<Characters />} />
+        <Route path="/characters" element={<CharactersResp />} />
         <Route path="/characters/:character_id" element={<CharacterDetails />} />
         <Route path="/games" element={<Games />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/charactersrt" element={<CharactersRt />} />
-        <Route path="/charactersresp" element={<CharactersResp />} />
-        {/* <Route path="/charactersgrid" element={<CharactersGrid />} /> */}
-        <Route path="/*" element={<Characters />} />
+        <Route path="/*" element={<CharactersResp />} />
       </Route>
     </Routes>
   ) as React.ReactElement;
