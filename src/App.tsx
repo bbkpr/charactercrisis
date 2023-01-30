@@ -12,6 +12,7 @@ import Characters from './components/Characters/Characters';
 //import CharactersGrid from './components/Characters/CharactersGrid';
 import CharactersRt from './components/Characters/CharactersRt';
 import AboutPage from './components/About/About';
+import CharactersResp from './components/Characters/CharactersResp';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/games" element={<Games />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/charactersrt" element={<CharactersRt />} />
+        <Route path="/charactersresp" element={<CharactersResp />} />
         {/* <Route path="/charactersgrid" element={<CharactersGrid />} /> */}
         <Route path="/*" element={<Characters />} />
       </Route>
