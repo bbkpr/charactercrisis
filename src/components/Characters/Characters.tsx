@@ -60,9 +60,7 @@ function Characters() {
                       </span>
                     </div>
                     <Link className="fs-6" to={`/games/${ch.game_id}`}>
-                      <OverlayTrigger placement="top" overlay={<Tooltip id={`tooltip-top`}>{ch.game.name}</Tooltip>}>
-                        <div>{ch.game.abbreviation}</div>
-                      </OverlayTrigger>
+                      <div>{ch.game.name}</div>
                     </Link>
                     {mainImage && (
                       <div className="mt-2 mx-auto img-fluid-wrap-md">
@@ -82,7 +80,12 @@ function Characters() {
                     {ch.character_stat.map((cs, idx) => (
                       <Col xs="6" md={idx < 3 || idx > 6 ? 4 : 3}>
                         <div className="stat-block text-center py-2 px-2 my-2">
-                          <h6 className="fw-bold fs-6">{cs.stat.name}</h6>
+                          <OverlayTrigger
+                            placement="top"
+                            overlay={<Tooltip id={`tooltip-top`}>{cs.stat.description}</Tooltip>}
+                          >
+                            <h6 className="fw-bold fs-6">{cs.stat.name}</h6>
+                          </OverlayTrigger>
                           <h4>{gradeValue(cs.value)}</h4>
                           <div className="stat-block-value">
                             <div>{cs.comments}</div>
