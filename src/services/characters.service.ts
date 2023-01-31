@@ -21,6 +21,8 @@ export const loadCharacters = async (dispatch: AppDispatch) => {
         game_id,
         game (
           id,
+          created_at,
+          updated_at,
           name,
           description,
           abbreviation

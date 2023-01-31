@@ -37,7 +37,7 @@ function Characters() {
           </h6>
           {characters.map((ch) => {
             const statsData = ch.character_stat.map((s) => ({
-              stat: s.stat.name,
+              stat: s.stat.name.split(' ')[0],
               [ch.name]: normalizeStatScore(s.value)
             }));
             const mainImage = ch.character_image.find((i) => i.image_type === 'main')?.image;
@@ -73,12 +73,23 @@ function Characters() {
                         <StatRadar character_name={ch.name} data={statsData} />
                       </div>
                     ) : null}
+                    <div className="character-tags">
+                      {ch.character_tag.map((ct) => (
+                        <OverlayTrigger
+                          key={ct.tag_id}
+                          placement="top"
+                          overlay={<Tooltip id={`tooltip-top`}>{ct.tag.description}</Tooltip>}
+                        >
+                          <div className="character-tag float-start">{ct.tag.name}</div>
+                        </OverlayTrigger>
+                      ))}
+                    </div>
                   </>
                 </Col>
                 <Col sm="8" md="9">
                   <Row className="justify-content-around">
                     {ch.character_stat.map((cs, idx) => (
-                      <Col xs="6" md={idx < 3 || idx > 6 ? 4 : 3}>
+                      <Col xs="6" md={idx < 3 || idx > 6 ? 4 : 3} key={cs.stat_id}>
                         <div className="stat-block text-center py-2 px-2 my-2">
                           <OverlayTrigger
                             placement="top"

@@ -107,6 +107,12 @@ th {
   border: 1px solid #333 !important;
 }
 
+.img-fluid-wrap-sm {
+  img {
+    height: 12em;
+  }
+}
+
 .img-fluid-wrap-md {
   max-width: 10em;
 }
@@ -129,11 +135,32 @@ th {
   }
 }
 
+.game-character-block {
+  border: 1px solid #444;
+  background-color: #222;
+  border-radius: 4px;
+  height: 30em;
+  &-value {
+    height: 14em;
+    overflow-y: auto;
+  }
+}
+
 a {
   text-decoration: none;
 }
 
 .character-row {
   border: 1px solid #444;
+  border-radius: 4px;
+}
+
+.character-tag {
+  background-color: #222;
+  border: 2px solid #444;
+  font-weight: bold;
+  margin-right: 0.25em;
+  margin-bottom: 0.25em;
+  padding: 0.25em;
   border-radius: 4px;
 }
