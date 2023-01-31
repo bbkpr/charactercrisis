@@ -42,10 +42,23 @@ export const loadCharacters = async (dispatch: AppDispatch) => {
         ),
         character_stat (
           character_id,
-          comments,
           stat_id,
+          comments,
           value,
           stat (
+            id,
+            name,
+            description,
+            created_at,
+            updated_at
+          )
+        ),
+        character_tag (
+          character_id,
+          tag_id,
+          comments,
+          value,
+          tag (
             id,
             name,
             description,
