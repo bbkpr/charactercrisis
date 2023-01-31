@@ -3,7 +3,7 @@ import { Col, Image, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
 
-import { loadCharacters, loadStats } from '../../services/characters.service';
+import { loadCharacters } from '../../services/characters.service';
 import { getPublicImageUrl } from '../../services/images.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { letterGrade, normalizeStatScore } from '../../utils/utils';
@@ -20,7 +20,6 @@ function CharacterDetails() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     loadCharacters(dispatch);
-    loadStats(dispatch);
   }, [dispatch]);
   const characters = useAppSelector((s) => s.characters);
 

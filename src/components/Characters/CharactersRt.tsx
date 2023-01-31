@@ -121,7 +121,7 @@ function Characters() {
 
   const table = useReactTable<Character>({
     columns,
-    data: characters ? characters : [],
+    data: characters,
     getCoreRowModel: getCoreRowModel<Character>()
   });
 

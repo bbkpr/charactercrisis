@@ -2,7 +2,7 @@ import * as React from 'react';
 
 const MainColumn: React.FC<{ children?: React.ReactNode; title?: string }> = ({ children, title }) => {
   return (
-    <div className="mt-2 mx-3 mx-lg-5">
+    <div className="mt-2 mx-3">
       {title && (
         <>
           <h3 className="title is-size-3">{title}</h3>

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Col, Row, Table } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
@@ -23,35 +23,36 @@ function Games() {
           <h6>
             <Link to={'/games'}>Games</Link>
           </h6>
-          <Table striped bordered hover className="games-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Characters</th>
-              </tr>
-            </thead>
-            <tbody>
-              {games &&
-                games.map((game) => {
-                  return (
-                    <tr key={game.id}>
-                      <td className="game-name-column">{game.name}</td>
-                      <td className="game-description-column">{game.description}</td>
-                      <td className="game-description-characters">
-                        <ul>
-                          {game.character.map((ch) => (
-                            <li key={ch.id}>
-                              <Link to={`/characters/${ch.id}`}>{ch.name}</Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </Table>
+          {games
+            .filter((g) => g.character.length)
+            .map((game) => {
+              return (
+                <Row key={game.id} className="my-4 px-2 py-2 character-row">
+                  <Col sm="4" md="3" className="text-center">
+                    <>
+                      <div>
+                        <Link to={`/games/${game.id}`} className="fs-5 fw-bold">
+                          {game.name}
+                        </Link>
+                      </div>
+                      <div className="fs-6">{game.description}</div>
+                    </>
+                  </Col>
+                  <Col sm="8" md="9">
+                    <Row className="justify-content-around">
+                      {game.character.map((ch) => (
+                        <Col xs="6" md="4" xl="3">
+                          <div className="stat-block text-center py-2 px-2 my-2">
+                            <h6 className="fw-bold fs-6">{ch.name}</h6>
+                            <div className="stat-block-value">{ch.description}</div>
+                          </div>
+                        </Col>
+                      ))}
+                    </Row>
+                  </Col>
+                </Row>
+              );
+            })}
         </Col>
       </Row>
     </MainColumn>

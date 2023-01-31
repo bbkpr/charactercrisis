@@ -71,8 +71,6 @@ h6 {
 }
 
 .grade {
-  font-weight: bold;
-  font-size: 2em;
   &-s {
     color: #00ccee !important;
   }
@@ -114,8 +112,8 @@ th {
 }
 
 .stat-block {
-  border: 1px solid #333;
-  background-color: #333;
+  border: 1px solid #444;
+  background-color: #222;
   border-radius: 4px;
   &-value {
     height: 15em;
@@ -136,6 +134,6 @@ a {
 }
 
 .character-row {
-  border: 1px solid #333;
+  border: 1px solid #444;
   border-radius: 4px;
 }

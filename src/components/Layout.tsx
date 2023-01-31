@@ -21,7 +21,7 @@ function Layout() {
             >
               Characters
             </Nav.Link>
-            <Nav.Link as={Link} to="/charactersrt" active={location.pathname.startsWith('/charactersrt')}>
+            <Nav.Link as={Link} to="/charactersrt" active={location.pathname === '/charactersrt'}>
               Characters (Table)
             </Nav.Link>
             <Nav.Link as={Link} to="/games" active={location.pathname.startsWith('/games')}>

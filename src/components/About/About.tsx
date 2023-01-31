@@ -8,7 +8,7 @@ export function AboutBlurb() {
     <div className="blurb">
       <p>
         Character Crisis is a utility to help you pick your next Fighting Game character! Right now, it is in{' '}
-        <strong>Alpha 1</strong>, please be patient as we continue to add features and data for more characters and
+        <strong>Alpha 1</strong>, please be patient as I continue to add features and data for more characters and
         games. The design and UX will improve significantly over time, I'm focused on core functionality, and what's
         here now is mostly a placeholder. The Navigation Bar at the top of the page contains core features, as well as
         experimental pages, such as alternate character data table displays.
