@@ -3,7 +3,7 @@ import { Col, Image, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
-import { loadCharacters, loadStats } from '../../services/characters.service';
+import { loadCharacters } from '../../services/characters.service';
 import { getPublicImageUrl } from '../../services/images.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { letterGrade, normalizeStatScore } from '../../utils/utils';
@@ -20,7 +20,6 @@ function Characters() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     loadCharacters(dispatch);
-    loadStats(dispatch);
   }, [dispatch]);
   const characters = useAppSelector((s) => s.characters);
 
@@ -73,7 +72,9 @@ function Characters() {
                         <OverlayTrigger
                           key={ct.tag_id}
                           placement="top"
-                          overlay={<Tooltip id={`tooltip-top`}>{ct.tag.description}</Tooltip>}
+                          overlay={
+                            <Tooltip id={`tooltip-top-${ct.character_id}-${ct.tag_id}`}>{ct.tag.description}</Tooltip>
+                          }
                         >
                           <div className="character-tag float-start">{ct.tag.name}</div>
                         </OverlayTrigger>
@@ -93,7 +94,11 @@ function Characters() {
                         <div className="stat-block text-center py-2 px-2 my-2">
                           <OverlayTrigger
                             placement="top"
-                            overlay={<Tooltip id={`tooltip-top`}>{cs.stat.description}</Tooltip>}
+                            overlay={
+                              <Tooltip id={`tooltip-top-${cs.character_id}-${cs.stat_id}`}>
+                                {cs.stat.description}
+                              </Tooltip>
+                            }
                           >
                             <h6 className="fw-bold fs-6">{cs.stat.name}</h6>
                           </OverlayTrigger>

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Character } from '../../models/character';
 import { Game } from '../../models/game';
 
-import { loadCharacters, loadStats } from '../../services/characters.service';
+import { loadCharacters } from '../../services/characters.service';
 import { getPublicImageUrl } from '../../services/images.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { letterGrade } from '../../utils/utils';
@@ -115,7 +115,6 @@ function Characters() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     loadCharacters(dispatch);
-    loadStats(dispatch);
   }, [dispatch]);
   const characters = useAppSelector((s) => s.characters);
 

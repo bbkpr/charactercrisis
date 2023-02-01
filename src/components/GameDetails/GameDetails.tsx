@@ -3,7 +3,7 @@ import { Col, Image, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
 
-import { loadGames } from '../../services/games.service';
+import { loadGame } from '../../services/games.service';
 import { getPublicImageUrl } from '../../services/images.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import MainColumn from '../MainColumn/MainColumn';
@@ -12,8 +12,8 @@ function GameDetails() {
   const { game_id } = useParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    loadGames(dispatch);
-  }, [dispatch]);
+    loadGame(dispatch, Number(game_id));
+  }, [game_id, dispatch]);
   const games = useAppSelector((s) => s.games);
   const game = games.find((c) => c.id === Number(game_id));
 

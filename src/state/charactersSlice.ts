@@ -8,7 +8,16 @@ export const charactersSlice = createSlice({
   initialState: [] as Character[],
   reducers: {
     charactersLoaded: (state, action: PayloadAction<EntitiesData<Character>>) => {
-      return action.payload.data;
+      action.payload.data.forEach((char) => {
+        const existingCharacter = state.find((ec) => ec.id === char.id);
+        if (existingCharacter) {
+          Object.assign(existingCharacter, char);
+        } else {
+          state.push(char);
+        }
+      });
+
+      return state;
     }
   }
 });

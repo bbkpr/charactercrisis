@@ -6,7 +6,7 @@ export const StatRadar = ({ data, character_name }) => (
     blendMode="multiply"
     borderWidth={2}
     colors={{ scheme: 'dark2' }}
-    theme={{ background: '#f3f3f3', grid: { line: { backgroundColor: '#ff0000' } } }}
+    theme={{ background: '#f3f3f3' }}
     isInteractive={false}
     data={data}
     dotBorderWidth={2}
