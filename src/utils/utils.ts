@@ -1,5 +1,4 @@
 import { AxiosRequestConfig } from 'axios';
-import { not } from 'ramda';
 
 export const any = <T>(list: T[]): boolean => !isNil(list) && list.length > 0;
 
