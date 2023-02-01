@@ -8,6 +8,7 @@ import userEvent from '@testing-library/user-event';
 
 import charactersReducer from '../state/charactersSlice';
 import gamesReducer from '../state/gamesSlice';
+import imagesReducer from '../state/imagesSlice';
 import statsReducer from '../state/statsSlice';
 import uiReducer from '../state/uiSlice';
 
@@ -40,7 +41,13 @@ export const renderWithProviderAndRouter = (
     preloadedState = {},
     // Automatically create a store instance if no store was passed in
     store = configureStore({
-      reducer: { characters: charactersReducer, games: gamesReducer, stats: statsReducer, ui: uiReducer },
+      reducer: {
+        characters: charactersReducer,
+        games: gamesReducer,
+        images: imagesReducer,
+        stats: statsReducer,
+        ui: uiReducer
+      },
       preloadedState
     }),
     routePath = '/',

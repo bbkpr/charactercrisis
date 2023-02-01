@@ -33,3 +33,5 @@ docker-compose.yml
 
 .idea
 /.firebase
+
+firebase-debug.log

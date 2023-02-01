@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import charactersReducer from './charactersSlice';
 import gamesReducer from './gamesSlice';
+import imagesReducer from './imagesSlice';
 import statsReducer from './statsSlice';
 import uiReducer from './uiSlice';
 
@@ -11,6 +12,7 @@ import type { PreloadedState } from '@reduxjs/toolkit';
 export const rootReducer = combineReducers({
   characters: charactersReducer,
   games: gamesReducer,
+  images: imagesReducer,
   stats: statsReducer,
   ui: uiReducer
 });

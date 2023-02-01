@@ -16,11 +16,52 @@ export const loadGames = async (dispatch: AppDispatch) => {
         description,
         created_at,
         updated_at,
+        abbreviation,
         character (
           id,
           name,
           description,
-          reference_link
+          reference_link,
+          character_image (
+            character_id,
+            image_id,
+            image_type,
+            image (
+              id,
+              name,
+              description,
+              created_at,
+              updated_at,
+              bucket,
+              path
+            )
+          ),
+          character_stat (
+            character_id,
+            stat_id,
+            comments,
+            value,
+            stat (
+              id,
+              name,
+              description,
+              created_at,
+              updated_at
+            )
+          ),
+          character_tag (
+            character_id,
+            tag_id,
+            comments,
+            value,
+            tag (
+              id,
+              name,
+              description,
+              created_at,
+              updated_at
+            )
+          )
         )
       `
         )
