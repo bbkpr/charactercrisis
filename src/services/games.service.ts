@@ -65,7 +65,8 @@ export const loadGame = async (dispatch: AppDispatch, game_id: number) => {
         .from('game')
         .select(gameSelector)
         .eq('id', game_id)
-        .order('name', { foreignTable: 'character' })) as EntitiesData<Game>
+        .order('name', { foreignTable: 'character' })
+        .order('id', { foreignTable: 'character_stat' })) as EntitiesData<Game>
     )
   );
 };
@@ -77,7 +78,8 @@ export const loadGames = async (dispatch: AppDispatch) => {
         .from('game')
         .select(gameSelector)
         .order('name')
-        .order('name', { foreignTable: 'character' })) as EntitiesData<Game>
+        .order('name', { foreignTable: 'character' })
+        .order('id', { foreignTable: 'character_stat' })) as EntitiesData<Game>
     )
   );
 };

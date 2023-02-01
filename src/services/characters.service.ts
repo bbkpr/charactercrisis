@@ -71,7 +71,7 @@ export const loadCharacter = async (dispatch: AppDispatch, character_id: number)
         .from('character')
         .select(characterSelector)
         .eq('id', character_id)
-        .order('stat_id', { foreignTable: 'character_stat' })) as EntitiesData<Character>
+        .order('id', { foreignTable: 'character_stat' })) as EntitiesData<Character>
     )
   );
 };
@@ -82,9 +82,9 @@ export const loadCharacters = async (dispatch: AppDispatch) => {
       (await supabase
         .from('character')
         .select(characterSelector)
-        .order('stat_id', { foreignTable: 'character_stat' })
-        .order('game_id')
-        .order('name')) as EntitiesData<Character>
+        .order('name')
+        .order('id', { foreignTable: 'character_stat' })
+        .order('game_id')) as EntitiesData<Character>
     )
   );
 };
