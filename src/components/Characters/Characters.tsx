@@ -1,3 +1,4 @@
+import orderBy from 'lodash/orderBy';
 import { useEffect } from 'react';
 import { Col, Image, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
@@ -35,7 +36,7 @@ function Characters() {
             <Link to={'/characters'}>Characters</Link>
           </h6>
           {characters.map((ch) => {
-            const statsData = ch.character_stat.map((s) => ({
+            const statsData = orderBy(ch.character_stat, ['stat_id'], ['asc']).map((s) => ({
               stat: s.stat.name.split(' ')[0],
               [ch.name]: normalizeStatScore(s.value)
             }));
