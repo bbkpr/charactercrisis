@@ -162,11 +162,18 @@ th {
   border: 1px solid #444;
   background-color: #222;
   border-radius: 4px;
-  height: 30em;
 
   &-value {
-    height: 14em;
+    height: 15em;
     overflow-y: auto;
+
+    @media (min-width: 992px) {
+      height: 14em;
+    }
+
+    @media (min-width: 1400px) {
+      height: 12em;
+    }
   }
 }
 
