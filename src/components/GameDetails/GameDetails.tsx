@@ -27,7 +27,7 @@ function GameDetails() {
           <h6>
             <Link to={'/games'}>Games</Link>
             {' > '}
-            <Link to={`/games/${game.id}`}>{game.name}</Link>
+            <Link to={`/games/${game?.id}`}>{game?.name}</Link>
           </h6>
           {game && (
             <Row key={game.id} className="my-4 px-2 py-2 character-row">

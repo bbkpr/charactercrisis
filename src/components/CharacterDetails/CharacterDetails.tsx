@@ -44,7 +44,7 @@ function CharacterDetails() {
             <h6>
               <Link to={'/characters'}>Characters</Link>
               {' > '}
-              <Link to={`/characters/${char.id}`}>{char.name}</Link>
+              <Link to={`/characters/${char?.id}`}>{char?.name}</Link>
             </h6>
             {char && (
               <Row key={char.id} className="my-4 px-2 py-2 character-row">

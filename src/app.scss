@@ -117,12 +117,25 @@ th {
 .img-fluid-wrap-sm {
   img {
     height: 12em;
+    @media (min-width: 992px) {
+      height: 14em;
+    }
+    @media (min-width: 1400px) {
+      height: 16em;
+    }
   }
 }
 
 .img-fluid-wrap-md {
   img {
     height: 16em;
+    @media (min-width: 992px) {
+      height: 18em;
+    }
+
+    @media (min-width: 1400px) {
+      height: 20em;
+    }
   }
 }
 

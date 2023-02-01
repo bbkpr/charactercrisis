@@ -18,6 +18,7 @@ export const loadCharacters = async (dispatch: AppDispatch) => {
         description,
         created_at,
         updated_at,
+        reference_link,
         game_id,
         game (
           id,
@@ -27,7 +28,6 @@ export const loadCharacters = async (dispatch: AppDispatch) => {
           description,
           abbreviation
         ),
-        reference_link,
         character_image (
           character_id,
           image_id,
@@ -78,5 +78,70 @@ export const loadCharacters = async (dispatch: AppDispatch) => {
 };
 
 export const loadStats = async (dispatch: AppDispatch) => {
-  return dispatch(statsLoaded((await supabase.from('stat').select('*').order('id')) as EntitiesData<Stat>));
+  return dispatch(
+    statsLoaded(
+      (await supabase
+        .from('stat')
+        .select(
+          `
+          id,
+          name,
+          description,
+          created_at,
+          updated_at,
+          character_stat (
+            character_id,
+            stat_id,
+            comments,
+            value,
+            character (
+              id,
+              name,
+              description,
+              created_at,
+              updated_at,
+              reference_link,
+              game_id,
+              game (
+                id,
+                created_at,
+                updated_at,
+                name,
+                description,
+                abbreviation
+              ),
+              character_image (
+                character_id,
+                image_id,
+                image_type,
+                image (
+                  id,
+                  name,
+                  description,
+                  created_at,
+                  updated_at,
+                  bucket,
+                  path
+                )
+              ),
+              character_tag (
+                character_id,
+                tag_id,
+                comments,
+                value,
+                tag (
+                  id,
+                  name,
+                  description,
+                  created_at,
+                  updated_at
+                )
+              )
+            )
+          )
+          `
+        )
+        .order('id')) as EntitiesData<Stat>
+    )
+  );
 };

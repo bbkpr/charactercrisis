@@ -67,13 +67,8 @@ function Characters() {
                         <Image fluid src={getPublicImageUrl(mainImage.path)} alt={mainImage.description} />
                       </div>
                     )}
-                    <div>{ch.description}</div>
-                    {ch && ch.character_stat.length ? (
-                      <div className="radar-wrap mx-auto my-3">
-                        <StatRadar character_name={ch.name} data={statsData} />
-                      </div>
-                    ) : null}
-                    <div className="character-tags">
+                    <div className="mt-2">{ch.description}</div>
+                    <div className="character-tags clearfix mt-2">
                       {ch.character_tag.map((ct) => (
                         <OverlayTrigger
                           key={ct.tag_id}
@@ -84,6 +79,11 @@ function Characters() {
                         </OverlayTrigger>
                       ))}
                     </div>
+                    {ch && ch.character_stat.length ? (
+                      <div className="radar-wrap mx-auto mt-2">
+                        <StatRadar character_name={ch.name} data={statsData} />
+                      </div>
+                    ) : null}
                   </>
                 </Col>
                 <Col sm="8" md="9">
