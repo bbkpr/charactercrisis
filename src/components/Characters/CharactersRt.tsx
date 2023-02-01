@@ -28,7 +28,7 @@ const characterLinkCell = (info: CellContext<Character, Character>) => {
         <Link to={`/characters/${character.id}`}>{character.name}</Link>
       </div>
       {mainImage && (
-        <div className="mt-2 img-fluid-wrap-md">
+        <div className="mt-2 img-fluid-wrap-sm">
           <Image fluid src={getPublicImageUrl(mainImage.path)} alt={mainImage.description} />
         </div>
       )}

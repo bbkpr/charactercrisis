@@ -1,6 +1,7 @@
 import { Col, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
+
 import MainColumn from '../MainColumn/MainColumn';
 
 export function AboutBlurb() {

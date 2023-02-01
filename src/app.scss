@@ -1,5 +1,6 @@
 @import './variables.scss';
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Ubuntu:wght@400;700&display=swap');
+
 body {
   font-family: 'Lato', sans-serif;
 }
@@ -47,6 +48,7 @@ h6 {
 .stats-accordion {
   .accordion-button {
     color: #ccc;
+
     &:not(.collapsed) {
       background-color: #333;
       color: #fff;
@@ -74,18 +76,23 @@ h6 {
   &-s {
     color: #00ccee !important;
   }
+
   &-a {
     color: #00ff00 !important;
   }
+
   &-b {
     color: #ffff00 !important;
   }
+
   &-c {
     color: #ff9900 !important;
   }
+
   &-d {
     color: #ff0000 !important;
   }
+
   &-u {
     color: #bbb !important;
   }
@@ -114,13 +121,16 @@ th {
 }
 
 .img-fluid-wrap-md {
-  max-width: 10em;
+  img {
+    height: 16em;
+  }
 }
 
 .stat-block {
   border: 1px solid #444;
   background-color: #222;
   border-radius: 4px;
+
   &-value {
     height: 15em;
     overflow-y: auto;
@@ -140,6 +150,7 @@ th {
   background-color: #222;
   border-radius: 4px;
   height: 30em;
+
   &-value {
     height: 14em;
     overflow-y: auto;
