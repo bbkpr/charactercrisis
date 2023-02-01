@@ -46,7 +46,9 @@ function Games() {
                         return (
                           <Col xs="6" md="4" xl="3" key={ch.id}>
                             <div className="game-character-block text-center py-2 px-2 my-2">
-                              <h6 className="fw-bold fs-6">{ch.name}</h6>
+                              <Link to={`/characters/${ch.id}`} className="fw-bold fs-6">
+                                {ch.name}
+                              </Link>
                               {mainImage && (
                                 <div className="mt-2 mx-auto img-fluid-wrap-sm">
                                   <Image fluid src={getPublicImageUrl(mainImage.path)} alt={mainImage.description} />

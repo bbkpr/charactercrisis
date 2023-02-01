@@ -1,16 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Image } from '../models/image';
 
+import { Image } from '../models/image';
 import { EntitiesData } from './dtos';
 
-// Can import the whole thing if you want
 export const imagesSlice = createSlice({
   name: 'images',
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState: [] as Image[],
   reducers: {
     imagesLoaded: (state, action: PayloadAction<EntitiesData<Image>>) => {
-      return action.payload.data;
+      action.payload.data.forEach((img) => {
+        const existingImage = state.find((ei) => ei.id === img.id);
+        if (existingImage) {
+          Object.assign(existingImage, img);
+        } else {
+          state.push(img);
+        }
+      });
     }
   }
 });

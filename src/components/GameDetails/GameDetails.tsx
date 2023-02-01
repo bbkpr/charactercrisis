@@ -3,7 +3,7 @@ import { Col, Image, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
 
-import { loadGames } from '../../services/games.service';
+import { loadGame } from '../../services/games.service';
 import { getPublicImageUrl } from '../../services/images.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import MainColumn from '../MainColumn/MainColumn';
@@ -12,8 +12,8 @@ function GameDetails() {
   const { game_id } = useParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    loadGames(dispatch);
-  }, [dispatch]);
+    loadGame(dispatch, Number(game_id));
+  }, [game_id, dispatch]);
   const games = useAppSelector((s) => s.games);
   const game = games.find((c) => c.id === Number(game_id));
 
@@ -27,7 +27,7 @@ function GameDetails() {
           <h6>
             <Link to={'/games'}>Games</Link>
             {' > '}
-            <Link to={`/games/${game.id}`}>{game.name}</Link>
+            <Link to={`/games/${game?.id}`}>{game?.name}</Link>
           </h6>
           {game && (
             <Row key={game.id} className="my-4 px-2 py-2 character-row">
@@ -48,7 +48,9 @@ function GameDetails() {
                     return (
                       <Col xs="6" md="4" xl="3" key={ch.id}>
                         <div className="game-character-block text-center py-2 px-2 my-2">
-                          <h6 className="fw-bold fs-6">{ch.name}</h6>
+                          <Link to={`/characters/${ch.id}`} className="fw-bold fs-6">
+                            {ch.name}
+                          </Link>
                           {mainImage && (
                             <div className="mt-2 mx-auto img-fluid-wrap-sm">
                               <Image fluid src={getPublicImageUrl(mainImage.path)} alt={mainImage.description} />

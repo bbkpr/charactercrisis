@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Character } from '../../models/character';
 import { Game } from '../../models/game';
 
-import { loadCharacters, loadStats } from '../../services/characters.service';
+import { loadCharacters } from '../../services/characters.service';
 import { getPublicImageUrl } from '../../services/images.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { letterGrade } from '../../utils/utils';
@@ -28,7 +28,7 @@ const characterLinkCell = (info: CellContext<Character, Character>) => {
         <Link to={`/characters/${character.id}`}>{character.name}</Link>
       </div>
       {mainImage && (
-        <div className="mt-2 img-fluid-wrap-md">
+        <div className="mt-2 img-fluid-wrap-sm">
           <Image fluid src={getPublicImageUrl(mainImage.path)} alt={mainImage.description} />
         </div>
       )}
@@ -115,7 +115,6 @@ function Characters() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     loadCharacters(dispatch);
-    loadStats(dispatch);
   }, [dispatch]);
   const characters = useAppSelector((s) => s.characters);
 
