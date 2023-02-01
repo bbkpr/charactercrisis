@@ -13,8 +13,6 @@ export type JestAxiosUnknownSpyInstance = jest.SpyInstance<
 
 export const isNil = <T>(item: Maybe<T>): item is Nullish => item === undefined || item === null;
 
-export const isNotNil = <T>(item: Maybe<T>): item is T => not(isNil(item));
-
 export const round = (num: number, decimals = 2): number => {
   const base = 10 ** decimals;
   return Math.round(num * base) / base;
