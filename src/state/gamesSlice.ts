@@ -9,7 +9,6 @@ export const gamesSlice = createSlice({
   initialState: [] as Game[],
   reducers: {
     gamesLoaded: (state, action: PayloadAction<EntitiesData<Game>>) => {
-      console.log('apd', action.payload.data);
       action.payload.data?.forEach((game) => {
         const existingGame = state.find((eg) => eg.id === game.id);
         if (existingGame) {

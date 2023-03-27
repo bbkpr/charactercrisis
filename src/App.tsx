@@ -10,7 +10,7 @@ import CharacterDetails from './components/CharacterDetails/CharacterDetails';
 import Games from './components/Games/Games';
 import CharactersRt from './components/Characters/CharactersRt';
 import AboutPage from './components/About/About';
-import Characters from './components/Characters/Characters';
+import Characters from './components/Characters/CharactersContainer';
 import GameDetails from './components/GameDetails/GameDetails';
 
 function App() {

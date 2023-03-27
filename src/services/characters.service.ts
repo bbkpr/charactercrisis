@@ -64,27 +64,15 @@ character_tag (
 )
 `;
 
-export const loadCharacter = async (dispatch: AppDispatch, character_id: number) => {
-  return dispatch(
-    charactersLoaded(
-      (await supabase
-        .from('character')
-        .select(characterSelector)
-        .eq('id', character_id)
-        .order('id', { foreignTable: 'character_stat' })) as EntitiesData<Character>
-    )
-  );
-};
-
 export const loadCharacters = async (dispatch: AppDispatch) => {
   return dispatch(
     charactersLoaded(
       (await supabase
         .from('character')
         .select(characterSelector)
+        .order('game_id')
         .order('name')
-        .order('id', { foreignTable: 'character_stat' })
-        .order('game_id')) as EntitiesData<Character>
+        .order('stat_id', { foreignTable: 'character_stat' })) as EntitiesData<Character>
     )
   );
 };
