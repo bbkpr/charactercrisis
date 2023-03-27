@@ -1,20 +1,40 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
+import { Character } from '../../models/character';
 
 import { loadCharacters } from '../../services/characters.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { calculateScoreDifference } from '../../utils/utils';
 import CharacterItem from '../Characters/CharacterItem';
 import MainColumn from '../MainColumn/MainColumn';
 
 function CharacterDetails() {
   const { character_id } = useParams();
   const dispatch = useAppDispatch();
+  const characters = useAppSelector((s) => s.characters);
+
+  const [similarCharacters, setSimilarCharacters] = useState<Character[]>([]);
+
   useEffect(() => {
     loadCharacters(dispatch);
   }, [dispatch]);
-  const characters = useAppSelector((s) => s.characters);
+
+  useEffect(() => {
+    const findSimilarCharacters = () => {
+      if (characters) {
+        const target = characters.find((c) => c.id === parseInt(character_id));
+        const similars = characters
+          .filter((c) => c.game_id === target.game_id && c.id !== target.id)
+          .map((c) => ({ ...c, scoreDifference: calculateScoreDifference(c, target) }))
+          .sort((a, b) => a.scoreDifference - b.scoreDifference);
+        setSimilarCharacters(similars);
+      }
+    };
+    findSimilarCharacters();
+  }, [character_id, characters]);
+
   const ch = characters.find((c) => c.id === Number(character_id));
   return (
     ch != null && (
@@ -34,7 +54,7 @@ function CharacterDetails() {
         <Row>
           <Col>{ch && <CharacterItem key={ch.id} character={ch} />}</Col>
           <Col>
-            {characters.map((ch) => {
+            {similarCharacters.map((ch) => {
               return ch && <CharacterItem key={ch.id} character={ch} />;
             })}
           </Col>

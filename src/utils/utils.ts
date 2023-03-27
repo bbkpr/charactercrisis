@@ -1,4 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
+import { Character } from '../models/character';
 
 export const any = <T>(list: T[]): boolean => !isNil(list) && list.length > 0;
 
@@ -61,4 +62,12 @@ export const normalizedLetterGrade = (nStatScore: number) => {
     : nStatScore === 1
     ? 'D'
     : 'U';
+};
+
+export const calculateScoreDifference = (c1: Character, c2: Character) => {
+  let sum = 0;
+  c1.character_stat.forEach((cs1) => {
+    sum += Math.abs(cs1.value - c2.character_stat.find((cs2) => cs1.stat_id === cs2.stat_id).value);
+  });
+  return sum;
 };

@@ -7,7 +7,7 @@ import { loadCharacters } from '../../services/characters.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { AboutBlurb } from '../About/About';
 import MainColumn from '../MainColumn/MainColumn';
-import CharacterList from './CharacterList';
+import CharacterItem from './CharacterItem';
 
 function Characters() {
   const dispatch = useAppDispatch();
@@ -27,7 +27,9 @@ function Characters() {
           <h6>
             <Link to={'/characters'}>Characters</Link>
           </h6>
-          <CharacterList characters={characters} />
+          {characters.map((ch) => {
+            return ch && <CharacterItem key={ch.id} character={ch} />;
+          })}
         </Col>
       </Row>
     </MainColumn>
