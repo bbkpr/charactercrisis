@@ -13,10 +13,11 @@ const gradeValue = (value: number) => {
 
 export interface ICharacterItemProps {
   character: Character;
+  isComparing?: boolean;
   scoreDifference?: number;
 }
 
-function CharacterItem({ character, scoreDifference }: ICharacterItemProps) {
+function CharacterItem({ character, isComparing, scoreDifference }: ICharacterItemProps) {
   const mainImage = character.character_image.find((i) => i.image_type === 'main')?.image;
   const statsData =
     character != null
@@ -54,11 +55,12 @@ function CharacterItem({ character, scoreDifference }: ICharacterItemProps) {
           <div className="character-tags clearfix mt-2">
             {character.character_tag.map((ct) => (
               <OverlayTrigger
+                trigger="click"
                 key={ct.tag_id}
                 placement="top"
                 overlay={<Tooltip id={`tooltip-top-${ct.character_id}-${ct.tag_id}`}>{ct.tag.description}</Tooltip>}
               >
-                <div className="character-tag float-start">{ct.tag.name}</div>
+                <div className="character-tag float-start tooltip-cursor-help">{ct.tag.name}</div>
               </OverlayTrigger>
             ))}
           </div>
@@ -72,22 +74,27 @@ function CharacterItem({ character, scoreDifference }: ICharacterItemProps) {
       </Col>
       <Col sm="8" md="9">
         <Row className="justify-content-around">
-          {character.character_stat.map((cs, idx) => (
-            <Col md={idx < 3 || idx > 6 ? (scoreDifference ? 6 : 4) : scoreDifference ? 4 : 3} key={cs.stat_id}>
-              <div className="stat-block text-center py-2 px-2 my-2">
-                <OverlayTrigger
-                  placement="top"
-                  overlay={<Tooltip id={`tooltip-top-${cs.character_id}-${cs.stat_id}`}>{cs.stat.description}</Tooltip>}
-                >
-                  <h6 className="fw-bold fs-6">{cs.stat.name}</h6>
-                </OverlayTrigger>
-                <h4>{gradeValue(cs.value)}</h4>
-                <div className="stat-block-value">
-                  <div>{cs.comments}</div>
+          {character.character_stat.map((cs, idx) => {
+            return (
+              <Col md={isComparing ? 6 : idx < 3 || idx > 6 ? 4 : 6} key={cs.stat_id}>
+                <div className="stat-block text-center py-2 px-2 my-2">
+                  <OverlayTrigger
+                    trigger="click"
+                    placement="top"
+                    overlay={
+                      <Tooltip id={`tooltip-top-${cs.character_id}-${cs.stat_id}`}>{cs.stat.description}</Tooltip>
+                    }
+                  >
+                    <h6 className="fw-bold fs-6 tooltip-cursor-help">{cs.stat.name}</h6>
+                  </OverlayTrigger>
+                  <h4>{gradeValue(cs.value)}</h4>
+                  <div className="stat-block-value">
+                    <div>{cs.comments}</div>
+                  </div>
                 </div>
-              </div>
-            </Col>
-          ))}
+              </Col>
+            );
+          })}
         </Row>
       </Col>
     </Row>
