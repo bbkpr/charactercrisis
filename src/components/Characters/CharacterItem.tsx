@@ -76,7 +76,7 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
         <Row className="justify-content-around">
           {character.character_stat.map((cs, idx) => {
             return (
-              <Col md={isComparing ? 6 : idx < 3 || idx > 6 ? 4 : 6} key={cs.stat_id}>
+              <Col md={isComparing ? 6 : idx < 3 || idx > 6 ? 4 : 3} key={cs.stat_id}>
                 <div className="stat-block text-center py-2 px-2 my-2">
                   <OverlayTrigger
                     trigger="click"
