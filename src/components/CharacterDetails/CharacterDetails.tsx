@@ -67,8 +67,14 @@ function CharacterDetails() {
           </Col>
         </Row>
         <Row>
-          <Col className="me-md-2 sticky-col">{ch && <CharacterItem key={ch.id} character={ch} />}</Col>
+          <Col className="me-md-2 sticky-col">
+            <h4>{ch.name}</h4>
+            {ch && <CharacterItem key={ch.id} character={ch} />}
+          </Col>
           <Col className="ms-md-2 scrollable-col">
+            <h4>
+              Most similar characters to {ch.name} in {ch.game.name}
+            </h4>
             {similarCharacters.map((sc) => {
               return (
                 sc && (

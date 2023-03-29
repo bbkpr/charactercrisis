@@ -73,7 +73,7 @@ function CharacterItem({ character, scoreDifference }: ICharacterItemProps) {
       <Col sm="8" md="9">
         <Row className="justify-content-around">
           {character.character_stat.map((cs, idx) => (
-            <Col md={idx < 3 || idx > 6 ? (scoreDifference ? 4 : 6) : scoreDifference ? 3 : 4} key={cs.stat_id}>
+            <Col md={idx < 3 || idx > 6 ? (scoreDifference ? 6 : 4) : scoreDifference ? 4 : 3} key={cs.stat_id}>
               <div className="stat-block text-center py-2 px-2 my-2">
                 <OverlayTrigger
                   placement="top"
