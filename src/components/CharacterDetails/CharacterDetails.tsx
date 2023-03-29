@@ -67,8 +67,8 @@ function CharacterDetails() {
           </Col>
         </Row>
         <Row>
-          <Col>{ch && <CharacterItem key={ch.id} character={ch} />}</Col>
-          <Col>
+          <Col className="me-md-2 sticky-col">{ch && <CharacterItem key={ch.id} character={ch} />}</Col>
+          <Col className="ms-md-2 scrollable-col">
             {similarCharacters.map((sc) => {
               return (
                 sc && (

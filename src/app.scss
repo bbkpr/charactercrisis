@@ -202,3 +202,16 @@ a {
 .tooltip {
   width: 12em;
 }
+
+.sticky-col {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.scrollable-col {
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+}
