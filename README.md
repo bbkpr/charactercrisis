@@ -23,6 +23,11 @@ New Environment Variables must be added to **all files starting with `.env`** to
 
 Refer to the workflows in [`.github`](/.github) and [`deploy`](/deploy) folders, and the [GitHub Actions panel in the repository](https://github.com/bbkpr/charactercrisis/actions).
 
+## Change Log
+
+### 0.9.0: March 28, 2023
+* Added CSS classes for sticky positioning and independent scrolling in the CharacterDetails component
+* Applied the new CSS classes to the respective columns in the CharacterDetails component, making the first column sticky and the second column independently scrollable
 ## npm scripts
 
 ### `npm start`
