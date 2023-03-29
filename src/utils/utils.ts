@@ -65,9 +65,11 @@ export const normalizedLetterGrade = (nStatScore: number) => {
 };
 
 export const calculateScoreDifference = (c1: Character, c2: Character) => {
-  let sum = 0;
-  c1.character_stat.forEach((cs1) => {
-    sum += Math.abs(cs1.value - c2.character_stat.find((cs2) => cs1.stat_id === cs2.stat_id).value);
-  });
-  return sum;
+  const c1Stats = new Map(c1.character_stat.map((stat) => [stat.stat_id, stat.value]));
+  const c2Stats = new Map(c2.character_stat.map((stat) => [stat.stat_id, stat.value]));
+
+  return Array.from(c1Stats.keys()).reduce(
+    (sum, statId) => sum + Math.abs((c1Stats.get(statId) || 0) - (c2Stats.get(statId) || 0)),
+    0
+  );
 };

@@ -13,9 +13,10 @@ const gradeValue = (value: number) => {
 
 export interface ICharacterItemProps {
   character: Character;
+  scoreDifference?: number;
 }
 
-function CharacterItem({ character }: ICharacterItemProps) {
+function CharacterItem({ character, scoreDifference }: ICharacterItemProps) {
   const mainImage = character.character_image.find((i) => i.image_type === 'main')?.image;
   const statsData =
     character != null
@@ -66,6 +67,7 @@ function CharacterItem({ character }: ICharacterItemProps) {
               <StatRadar character_name={character.name} data={statsData} />
             </div>
           ) : null}
+          {scoreDifference && <div className="mt-2">Score Difference: {scoreDifference}</div>}
         </>
       </Col>
       <Col sm="8" md="9">

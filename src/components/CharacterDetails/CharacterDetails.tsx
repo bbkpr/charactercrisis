@@ -27,7 +27,22 @@ function CharacterDetails() {
         const target = characters.find((c) => c.id === parseInt(character_id));
         const similars = characters
           .filter((c) => c.game_id === target.game_id && c.id !== target.id)
-          .map((c) => ({ ...c, scoreDifference: calculateScoreDifference(c, target) }))
+          .map((c) => {
+            const scoreDifference = calculateScoreDifference(c, target);
+            const commonTags = c.character_tag.filter((t1) =>
+              target.character_tag.some((t2) => t1.tag_id === t2.tag_id)
+            );
+            const adjustedScoreDifference = commonTags.reduce(
+              (acc, _, idx) => Math.floor(acc * (1 - 0.2 * (idx + 1))),
+              scoreDifference
+            );
+            console.log(
+              `${c.name} score diff: ${adjustedScoreDifference} | common tags: (${commonTags.length}): ${commonTags
+                .map((ct) => ct.tag.name)
+                .join(', ')}`
+            );
+            return { ...c, scoreDifference: adjustedScoreDifference };
+          })
           .sort((a, b) => a.scoreDifference - b.scoreDifference);
         setSimilarCharacters(similars);
       }
@@ -54,8 +69,16 @@ function CharacterDetails() {
         <Row>
           <Col>{ch && <CharacterItem key={ch.id} character={ch} />}</Col>
           <Col>
-            {similarCharacters.map((ch) => {
-              return ch && <CharacterItem key={ch.id} character={ch} />;
+            {similarCharacters.map((sc) => {
+              return (
+                sc && (
+                  <CharacterItem
+                    key={sc.id}
+                    character={sc}
+                    scoreDifference={(sc as Character & { scoreDifference: number }).scoreDifference}
+                  />
+                )
+              );
             })}
           </Col>
         </Row>
