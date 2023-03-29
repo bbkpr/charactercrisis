@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import { not } from 'ramda';
+import { Character } from '../models/character';
 
 export const any = <T>(list: T[]): boolean => !isNil(list) && list.length > 0;
 
@@ -13,8 +13,6 @@ export type JestAxiosUnknownSpyInstance = jest.SpyInstance<
 >;
 
 export const isNil = <T>(item: Maybe<T>): item is Nullish => item === undefined || item === null;
-
-export const isNotNil = <T>(item: Maybe<T>): item is T => not(isNil(item));
 
 export const round = (num: number, decimals = 2): number => {
   const base = 10 ** decimals;
@@ -64,4 +62,14 @@ export const normalizedLetterGrade = (nStatScore: number) => {
     : nStatScore === 1
     ? 'D'
     : 'U';
+};
+
+export const calculateScoreDifference = (c1: Character, c2: Character) => {
+  const c1Stats = new Map(c1.character_stat.map((stat) => [stat.stat_id, stat.value]));
+  const c2Stats = new Map(c2.character_stat.map((stat) => [stat.stat_id, stat.value]));
+
+  return Array.from(c1Stats.keys()).reduce(
+    (sum, statId) => sum + Math.abs((c1Stats.get(statId) || 0) - (c2Stats.get(statId) || 0)),
+    0
+  );
 };
