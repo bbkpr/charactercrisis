@@ -5,6 +5,7 @@ import { Character } from '../../models/character';
 import { getPublicImageUrl } from '../../services/images.service';
 import { letterGrade, normalizeStatScore } from '../../utils/utils';
 import { StatRadar } from '../StatRadar/StatRadar';
+import { useEffect, useState } from 'react';
 
 const gradeValue = (value: number) => {
   const grade = letterGrade(value);
@@ -26,6 +27,33 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
           [character.name]: normalizeStatScore(s.value)
         }))
       : [];
+
+  const [expandedStatId, setExpandedStatId] = useState<number | null>(null);
+
+  const toggleStatBlockValue = (statId: number) => {
+    if (expandedStatId === statId) {
+      setExpandedStatId(null);
+    } else {
+      setExpandedStatId(statId);
+    }
+  };
+
+  useEffect(() => {
+    const statBlockValues = document.querySelectorAll('.stat-block-value');
+    statBlockValues.forEach((statBlockValue) => {
+      statBlockValue.addEventListener('transitionend', () => {
+        statBlockValue.classList.remove('animating');
+      });
+    });
+
+    return () => {
+      statBlockValues.forEach((statBlockValue) => {
+        statBlockValue.removeEventListener('transitionend', () => {
+          statBlockValue.classList.remove('animating');
+        });
+      });
+    };
+  }, []);
   return (
     <Row key={character.id} className="my-4 px-2 py-2 character-row">
       <Col sm="4" md="3" className="text-center">
@@ -35,7 +63,7 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
               {character.name}
             </Link>
             &nbsp;{' '}
-            <span className="fs-6">
+            <span className="fs-6 character-reference-link">
               (
               <a href={character.reference_link} target="_blank" rel="noreferrer">
                 wiki
@@ -43,15 +71,15 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
               )
             </span>
           </div>
-          <Link className="fs-6" to={`/games/${character.game_id}`}>
+          <Link className="fs-6 character-game" to={`/games/${character.game_id}`}>
             <div>{character.game.name}</div>
           </Link>
           {mainImage && (
-            <div className="mt-2 mx-auto img-fluid-wrap-md">
+            <div className="mt-2 mx-auto img-fluid-wrap-md character-image">
               <Image fluid src={getPublicImageUrl(mainImage.path)} alt={mainImage.description} />
             </div>
           )}
-          <div className="mt-2">{character.description}</div>
+          <div className="mt-2 character-description">{character.description}</div>
           <div className="character-tags clearfix mt-2">
             {character.character_tag.map((ct) => (
               <OverlayTrigger
@@ -85,10 +113,13 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
                       <Tooltip id={`tooltip-top-${cs.character_id}-${cs.stat_id}`}>{cs.stat.description}</Tooltip>
                     }
                   >
-                    <h6 className="fw-bold fs-6 tooltip-cursor-help">{cs.stat.name}</h6>
+                    <p className="stat-name tooltip-cursor-help">{cs.stat.name}</p>
                   </OverlayTrigger>
-                  <h4>{gradeValue(cs.value)}</h4>
-                  <div className="stat-block-value">
+                  <p className="grade-value">{gradeValue(cs.value)}</p>
+                  <div
+                    className={`stat-block-value ${expandedStatId === cs.stat_id ? 'expanded' : ''}`}
+                    onClick={() => toggleStatBlockValue(cs.stat_id)}
+                  >
                     <div>{cs.comments}</div>
                   </div>
                 </div>
