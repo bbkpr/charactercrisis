@@ -97,6 +97,17 @@ h6 {
     color: #bbb !important;
   }
 }
+p.stat-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  transition: font-size 0.3s ease-in-out;
+}
+
+p.grade-value {
+  font-size: 2em;
+  font-weight: bold;
+  transition: font-size 0.3s ease-in-out;
+}
 
 .bg-black {
   background-color: #000;
@@ -117,6 +128,7 @@ th {
 .img-fluid-wrap-sm {
   img {
     height: 12em;
+    transition: height 0.3s ease-in-out;
     @media (min-width: 992px) {
       height: 14em;
     }
@@ -129,6 +141,7 @@ th {
 .img-fluid-wrap-md {
   img {
     height: 16em;
+    transition: height 0.3s ease-in-out;
     @media (min-width: 992px) {
       height: 18em;
     }
@@ -146,7 +159,15 @@ th {
 
   &-value {
     height: 15em;
+    max-height: 15em;
     overflow-y: auto;
+    scrollbar-width: thin !important;
+    position: relative;
+    transition: max-height 0.3s ease-in-out;
+
+    &.animating {
+      transition: max-height 0.3s ease-in-out;
+    }
 
     @media (min-width: 992px) {
       height: 14em;
@@ -169,6 +190,7 @@ th {
   &-value {
     height: 15em;
     overflow-y: auto;
+    scrollbar-width: thin !important;
 
     @media (min-width: 992px) {
       height: 14em;
@@ -210,13 +232,172 @@ a {
   // 80% of vertical height
   height: 80vh;
   overflow-y: auto;
+  scrollbar-width: thin !important;
 }
 
 .scrollable-col {
   height: 80vh;
   overflow-y: auto;
+  scrollbar-width: thin !important;
 }
 
 .tooltip-cursor-help {
   cursor: help;
+}
+
+// Small UI state
+.small-ui {
+  .character-row {
+    font-size: 0.8em;
+  }
+
+  .radar-wrap {
+    display: none;
+  }
+
+  //.stat-block {
+  //  font-size: 0.8em;
+  //}
+
+  .stat-block-value {
+    max-height: 6em;
+  }
+
+  .img-fluid-wrap-sm {
+    img {
+      height: 8em;
+      @media (min-width: 992px) {
+        height: 10em;
+      }
+      @media (min-width: 1400px) {
+        height: 12em;
+      }
+    }
+  }
+
+  .img-fluid-wrap-md {
+    img {
+      height: 12em;
+      @media (min-width: 992px) {
+        height: 14em;
+      }
+
+      @media (min-width: 1400px) {
+        height: 16em;
+      }
+    }
+  }
+}
+
+// Compact UI state
+.compact-ui {
+  .character-row {
+    font-size: 0.7em;
+  }
+
+  .radar-wrap {
+    display: none;
+  }
+
+  .stat-block {
+    font-size: 0.8em;
+  }
+
+  .stat-block-value {
+    max-height: 4em;
+  }
+
+  .img-fluid-wrap-sm {
+    img {
+      height: 4em !important;
+      @media (min-width: 992px) {
+        height: 6em !important;
+      }
+      @media (min-width: 1400px) {
+        height: 8em !important;
+      }
+    }
+  }
+
+  .img-fluid-wrap-md {
+    img {
+      height: 8em !important;
+      @media (min-width: 992px) {
+        height: 10em !important;
+      }
+
+      @media (min-width: 1400px) {
+        height: 12em !important;
+      }
+    }
+  }
+}
+
+@keyframes slide {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.btn-group {
+  position: relative;
+
+  .btn {
+    transition: background-color 0.3s ease;
+
+    &.active {
+      background-color: #007bff;
+      color: #fff;
+    }
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 33.33%;
+    background-color: #007bff;
+    z-index: -1;
+    animation: slide 0.3s ease;
+  }
+}
+
+.stat-card {
+  transition: all 0.3s ease;
+
+  &.animate {
+    transform: translateY(0);
+  }
+}
+
+.character-details {
+  .img-fluid-wrap-sm {
+    img {
+      height: 6em;
+      @media (min-width: 992px) {
+        height: 8em;
+      }
+      @media (min-width: 1400px) {
+        height: 10em;
+      }
+    }
+  }
+
+  .img-fluid-wrap-md {
+    img {
+      height: 8em;
+      @media (min-width: 992px) {
+        height: 10em;
+      }
+
+      @media (min-width: 1400px) {
+        height: 12em;
+      }
+    }
+  }
 }

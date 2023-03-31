@@ -16,8 +16,8 @@ import type { RenderOptions } from '@testing-library/react';
 import type { AppStore, RootState } from '../state/store';
 
 /**
- * This type interface extends the default options for render from RTL, as well
- * as allows the user to specify other things such as initialState, store.
+ * This type interface extends the default options for render from RTK, and
+ * allows the user to specify other things such as initialState, store.
  */
 interface ExtendedRenderOptionsWithRouter extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>;

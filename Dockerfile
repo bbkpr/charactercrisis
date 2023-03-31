@@ -4,6 +4,7 @@ WORKDIR /app
 COPY ./ ./
 RUN npm ci
 RUN npm run build
+RUN npm i -g jest@29
 
 FROM nginx:stable-alpine as runtime
 
