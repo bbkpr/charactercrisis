@@ -2,6 +2,7 @@ import React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import ScrollToTop from 'react-scroll-to-top';
 
 function Layout() {
   const location = useLocation();
@@ -21,9 +22,6 @@ function Layout() {
             >
               Characters
             </Nav.Link>
-            <Nav.Link as={Link} to="/charactersrt" active={location.pathname === '/charactersrt'}>
-              Characters (Table)
-            </Nav.Link>
             <Nav.Link as={Link} to="/games" active={location.pathname.startsWith('/games')}>
               Games
             </Nav.Link>
@@ -36,6 +34,7 @@ function Layout() {
       <Container fluid>
         <Outlet />
       </Container>
+      <ScrollToTop smooth />
     </>
   ) as React.ReactElement;
 }

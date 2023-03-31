@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import { Col, Dropdown, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
@@ -20,6 +20,10 @@ function CharacterDetails() {
 
   const [similarCharacters, setSimilarCharacters] = useState<Character[]>([]);
   const [selectedGameId, setSelectedGameId] = useState<number>(0);
+  const [uiState, setUiState] = useState('Normal');
+
+  const scrollTopCharacterRef = createRef<HTMLDivElement>();
+  const scrollTopSimilarRef = createRef<HTMLDivElement>();
 
   const handleGameSelection = (gameId: number) => {
     setSelectedGameId(gameId);
@@ -30,7 +34,25 @@ function CharacterDetails() {
       setSelectedGameId(lc.payload.data.find((c) => c.id === Number(character_id))?.game_id ?? 0)
     );
     loadGames(dispatch);
-  }, [dispatch]);
+  }, [character_id, dispatch]);
+
+  useEffect(() => {
+    scrollTopCharacterRef.current?.scrollIntoView({ behavior: 'auto' });
+    scrollTopSimilarRef.current?.scrollIntoView({ behavior: 'auto' });
+  }, [character_id, scrollTopCharacterRef, scrollTopSimilarRef]);
+
+  useEffect(() => {
+    const statCards = document.querySelectorAll('.stat-card');
+    statCards.forEach((card) => {
+      card.classList.remove('animate');
+    });
+
+    setTimeout(() => {
+      statCards.forEach((card) => {
+        card.classList.add('animate');
+      });
+    }, 100);
+  }, [uiState]);
 
   useEffect(() => {
     const findSimilarCharacters = () => {
@@ -69,23 +91,50 @@ function CharacterDetails() {
 
   return (
     ch != null && (
-      <MainColumn>
+      <MainColumn
+        className={`character-details ${uiState === 'Small' ? 'small-ui' : uiState === 'Compact' ? 'compact-ui' : ''}`}
+      >
         <Helmet>
           <title>Character Crisis | {ch.name}</title>
         </Helmet>
         <Row className="mb-2">
-          <Col>
+          <Col md={4}>
             <h6>
               <Link to={'/characters'}>Characters</Link>
               {' > '}
               <Link to={`/characters/${ch?.id}`}>{ch?.name}</Link>
             </h6>
           </Col>
-          <Col className="text-end">
-            <strong>Select a Game to compare</strong>
-            <Dropdown onSelect={(v) => handleGameSelection(parseInt(v))}>
+          <Col md={4}>
+            <div className="fw-bold text-center">View</div>
+            <div className="text-center">
+              <div className="btn-group text-end" role="group">
+                <button
+                  className={`btn btn-primary ${uiState === 'Normal' ? 'active' : ''}`}
+                  onClick={() => setUiState('Normal')}
+                >
+                  Normal
+                </button>
+                <button
+                  className={`btn btn-primary ${uiState === 'Small' ? 'active' : ''}`}
+                  onClick={() => setUiState('Small')}
+                >
+                  Small
+                </button>
+                <button
+                  className={`btn btn-primary ${uiState === 'Compact' ? 'active' : ''}`}
+                  onClick={() => setUiState('Compact')}
+                >
+                  Compact
+                </button>
+              </div>
+            </div>
+          </Col>
+          <Col md={4}>
+            <div className="fw-bold text-end">Select a Game to compare</div>
+            <Dropdown className="text-end" onSelect={(v) => handleGameSelection(parseInt(v))}>
               <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                {ch.game.name}
+                {games.find((g) => g.id === selectedGameId)?.name ?? 'All Games'}
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <>
@@ -103,14 +152,18 @@ function CharacterDetails() {
           </Col>
         </Row>
         <Row>
-          <Col className="me-md-2 sticky-col">
-            <h4>{ch.name}</h4>
+          <Col className="me-md-2 sticky-col" id="character-details-selected">
+            <div ref={scrollTopCharacterRef}></div>
+            <h6>
+              {ch.game.name} {'>'} {ch.name}
+            </h6>
             {ch && <CharacterItem key={ch.id} character={ch} isComparing />}
           </Col>
-          <Col className="ms-md-2 scrollable-col">
-            <h4>
+          <Col className="ms-md-2 scrollable-col" id="character-details-similar">
+            <div ref={scrollTopSimilarRef}></div>
+            <h6>
               Most similar characters to {ch.name} in {games.find((g) => g.id === selectedGameId)?.name ?? 'All Games'}
-            </h4>
+            </h6>
             {similarCharacters.map((sc) => {
               return (
                 sc && (

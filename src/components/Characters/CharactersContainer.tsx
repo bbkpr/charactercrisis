@@ -38,32 +38,37 @@ function Characters() {
       <Row>
         <Col>
           <AboutBlurb />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={4}>
           <h6>
             <Link to={'/characters'}>Characters</Link>
           </h6>
         </Col>
-      </Row>
-      <Row>
-        <Col className="text-end">
-          <div className="btn-group" role="group">
-            <button
-              className={`btn btn-primary ${uiState === 'Normal' ? 'active' : ''}`}
-              onClick={() => setUiState('Normal')}
-            >
-              Normal
-            </button>
-            <button
-              className={`btn btn-primary ${uiState === 'Small' ? 'active' : ''}`}
-              onClick={() => setUiState('Small')}
-            >
-              Small
-            </button>
-            <button
-              className={`btn btn-primary ${uiState === 'Compact' ? 'active' : ''}`}
-              onClick={() => setUiState('Compact')}
-            >
-              Compact
-            </button>
+        <Col md={4}>
+          <div className="fw-bold text-center">View</div>
+          <div className="text-center">
+            <div className="btn-group text-end" role="group">
+              <button
+                className={`btn btn-primary ${uiState === 'Normal' ? 'active' : ''}`}
+                onClick={() => setUiState('Normal')}
+              >
+                Normal
+              </button>
+              <button
+                className={`btn btn-primary ${uiState === 'Small' ? 'active' : ''}`}
+                onClick={() => setUiState('Small')}
+              >
+                Small
+              </button>
+              <button
+                className={`btn btn-primary ${uiState === 'Compact' ? 'active' : ''}`}
+                onClick={() => setUiState('Compact')}
+              >
+                Compact
+              </button>
+            </div>
           </div>
         </Col>
       </Row>
