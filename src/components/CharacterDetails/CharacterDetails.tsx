@@ -102,6 +102,8 @@ function CharacterDetails() {
             <h6>
               <Link to={'/characters'}>Characters</Link>
               {' > '}
+              <Link to={`/games/${ch?.game?.id}`}>{ch?.game?.name}</Link>
+              {' > '}
               <Link to={`/characters/${ch?.id}`}>{ch?.name}</Link>
             </h6>
           </Col>
