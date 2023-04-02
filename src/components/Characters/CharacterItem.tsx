@@ -5,7 +5,7 @@ import { Character } from '../../models/character';
 import { getPublicImageUrl } from '../../services/images.service';
 import { letterGrade, normalizeStatScore } from '../../utils/utils';
 import { StatRadar } from '../StatRadar/StatRadar';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const gradeValue = (value: number) => {
   const grade = letterGrade(value);
@@ -28,16 +28,6 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
         }))
       : [];
 
-  const [expandedStatId, setExpandedStatId] = useState<number | null>(null);
-
-  const toggleStatBlockValue = (statId: number) => {
-    if (expandedStatId === statId) {
-      setExpandedStatId(null);
-    } else {
-      setExpandedStatId(statId);
-    }
-  };
-
   useEffect(() => {
     const statBlockValues = document.querySelectorAll('.stat-block-value');
     statBlockValues.forEach((statBlockValue) => {
@@ -55,7 +45,7 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
     };
   }, []);
   return (
-    <Row key={character.id} className="my-4 px-2 py-2 character-row">
+    <Row key={character.id} className="my-3 px-2 py-2 character-row">
       <Col xs="4" md="3" className="text-center">
         <>
           <div>
@@ -104,8 +94,8 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
         <Row className="justify-content-around">
           {character.character_stat.map((cs, idx) => {
             return (
-              <Col md={isComparing ? 6 : idx < 3 || idx > 6 ? 4 : 3} key={cs.stat_id}>
-                <div className="stat-block text-center py-2 px-2 my-2">
+              <Col md={isComparing ? 6 : idx < 3 || idx > 6 ? 4 : 3} className="px-1" key={cs.stat_id}>
+                <div className="stat-block text-center">
                   <OverlayTrigger
                     trigger="click"
                     placement="top"
@@ -116,10 +106,7 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
                     <div className="stat-name tooltip-cursor-help">{cs.stat.name}</div>
                   </OverlayTrigger>
                   <div className="grade-value">{gradeValue(cs.value)}</div>
-                  <div
-                    className={`stat-block-value ${expandedStatId === cs.stat_id ? 'expanded' : ''}`}
-                    onClick={() => toggleStatBlockValue(cs.stat_id)}
-                  >
+                  <div className={`stat-block-value`}>
                     <div>{cs.comments}</div>
                   </div>
                 </div>

@@ -15,7 +15,10 @@ function Characters() {
     loadCharacters(dispatch);
   }, [dispatch]);
   const characters = useAppSelector((s) => s.characters);
-  const [uiState, setUiState] = useState('Normal');
+  const [uiState, setUiState] = useState(() => {
+    const storedUiState = localStorage.getItem('uiState');
+    return storedUiState ? JSON.parse(storedUiState) : 'Normal';
+  });
 
   useEffect(() => {
     const statCards = document.querySelectorAll('.stat-card');
@@ -31,6 +34,10 @@ function Characters() {
   }, [uiState]);
 
   const [sortStat, setSortStat] = useState<string | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem('uiState', JSON.stringify(uiState));
+  }, [uiState]);
 
   const sortedCharacters = characters.slice().sort((a, b) => {
     if (!sortStat) return 0;
@@ -105,7 +112,7 @@ function Characters() {
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col className="character-list">
           {sortedCharacters.map((ch) => {
             return ch && <CharacterItem key={ch.id} character={ch} />;
           })}
