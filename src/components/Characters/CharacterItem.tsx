@@ -56,14 +56,14 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
   }, []);
   return (
     <Row key={character.id} className="my-4 px-2 py-2 character-row">
-      <Col sm="4" md="3" className="text-center">
+      <Col xs="4" md="3" className="text-center">
         <>
           <div>
-            <Link to={`/characters/${character.id}`} className="fs-5 fw-bold">
+            <Link to={`/characters/${character.id}`} className="character-name">
               {character.name}
             </Link>
             &nbsp;{' '}
-            <span className="fs-6 character-reference-link">
+            <span className="character-reference-link">
               (
               <a href={character.reference_link} target="_blank" rel="noreferrer">
                 wiki
@@ -71,7 +71,7 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
               )
             </span>
           </div>
-          <Link className="fs-6 character-game" to={`/games/${character.game_id}`}>
+          <Link className="character-game" to={`/games/${character.game_id}`}>
             <div>{character.game.name}</div>
           </Link>
           {mainImage && (
@@ -100,7 +100,7 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
           {scoreDifference && <div className="mt-2">Score Difference: {scoreDifference}</div>}
         </>
       </Col>
-      <Col sm="8" md="9">
+      <Col xs="8" md="9">
         <Row className="justify-content-around">
           {character.character_stat.map((cs, idx) => {
             return (
@@ -113,9 +113,9 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
                       <Tooltip id={`tooltip-top-${cs.character_id}-${cs.stat_id}`}>{cs.stat.description}</Tooltip>
                     }
                   >
-                    <p className="stat-name tooltip-cursor-help">{cs.stat.name}</p>
+                    <div className="stat-name tooltip-cursor-help">{cs.stat.name}</div>
                   </OverlayTrigger>
-                  <p className="grade-value">{gradeValue(cs.value)}</p>
+                  <div className="grade-value">{gradeValue(cs.value)}</div>
                   <div
                     className={`stat-block-value ${expandedStatId === cs.stat_id ? 'expanded' : ''}`}
                     onClick={() => toggleStatBlockValue(cs.stat_id)}

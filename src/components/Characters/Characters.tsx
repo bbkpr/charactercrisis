@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Dropdown, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
@@ -29,6 +29,23 @@ function Characters() {
       });
     }, 100);
   }, [uiState]);
+
+  const [sortStat, setSortStat] = useState<string | null>(null);
+
+  const sortedCharacters = characters.slice().sort((a, b) => {
+    if (!sortStat) return 0;
+
+    const aStat = a.character_stat.find((stat) => stat.stat.name === sortStat);
+    const bStat = b.character_stat.find((stat) => stat.stat.name === sortStat);
+
+    if (!aStat || !bStat) return 0;
+
+    return bStat.value - aStat.value;
+  });
+
+  const handleSort = (stat: string) => {
+    setSortStat(stat);
+  };
 
   return (
     <MainColumn className={`${uiState === 'Small' ? 'small-ui' : uiState === 'Compact' ? 'compact-ui' : ''}`}>
@@ -71,10 +88,25 @@ function Characters() {
             </div>
           </div>
         </Col>
+        <Col md={4}>
+          <div className="fw-bold text-end">Sort</div>
+          <Dropdown className="text-end" onSelect={(e: string | null) => handleSort(e || '')}>
+            <Dropdown.Toggle variant="primary" id="sort-dropdown">
+              {sortStat || 'Select stat to sort'}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {characters[0]?.character_stat.map((stat) => (
+                <Dropdown.Item key={stat.stat.name} eventKey={stat.stat.name}>
+                  {stat.stat.name}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
       </Row>
       <Row>
         <Col>
-          {characters.map((ch) => {
+          {sortedCharacters.map((ch) => {
             return ch && <CharacterItem key={ch.id} character={ch} />;
           })}
         </Col>
