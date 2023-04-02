@@ -20,7 +20,10 @@ function CharacterDetails() {
 
   const [similarCharacters, setSimilarCharacters] = useState<Character[]>([]);
   const [selectedGameId, setSelectedGameId] = useState<number>(0);
-  const [uiState, setUiState] = useState('Normal');
+  const [uiState, setUiState] = useState(() => {
+    const storedUiState = localStorage.getItem('uiState');
+    return storedUiState ? JSON.parse(storedUiState) : 'Normal';
+  });
 
   const scrollTopCharacterRef = createRef<HTMLDivElement>();
   const scrollTopSimilarRef = createRef<HTMLDivElement>();

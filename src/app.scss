@@ -168,7 +168,8 @@ th {
   border: 1px solid #444;
   background-color: #222;
   border-radius: 4px;
-
+  padding: 0.25em;
+  margin: 0.25em;
   &-value {
     height: 15em;
     max-height: 15em;
@@ -351,31 +352,6 @@ a {
   }
   100% {
     left: 100%;
-  }
-}
-
-.btn-group {
-  position: relative;
-
-  .btn {
-    transition: background-color 0.3s ease;
-
-    &.active {
-      background-color: #007bff;
-      color: #fff;
-    }
-  }
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 33.33%;
-    background-color: #007bff;
-    z-index: -1;
-    animation: slide 0.3s ease;
   }
 }
 
