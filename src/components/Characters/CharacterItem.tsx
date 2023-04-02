@@ -94,18 +94,20 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
         <Row className="justify-content-around">
           {character.character_stat.map((cs, idx) => {
             return (
-              <Col md={isComparing ? 6 : idx < 3 || idx > 6 ? 4 : 3} className="px-1" key={cs.stat_id}>
+              <Col className="px-0" md={isComparing ? 6 : idx < 3 || idx > 6 ? 4 : 3} key={cs.stat_id}>
                 <div className="stat-block text-center">
-                  <OverlayTrigger
-                    trigger="click"
-                    placement="top"
-                    overlay={
-                      <Tooltip id={`tooltip-top-${cs.character_id}-${cs.stat_id}`}>{cs.stat.description}</Tooltip>
-                    }
-                  >
-                    <div className="stat-name tooltip-cursor-help">{cs.stat.name}</div>
-                  </OverlayTrigger>
-                  <div className="grade-value">{gradeValue(cs.value)}</div>
+                  <div className="stat-block-header-wrap d-flex">
+                    <OverlayTrigger
+                      trigger="click"
+                      placement="top"
+                      overlay={
+                        <Tooltip id={`tooltip-top-${cs.character_id}-${cs.stat_id}`}>{cs.stat.description}</Tooltip>
+                      }
+                    >
+                      <div className="stat-name tooltip-cursor-help">{cs.stat.name}</div>
+                    </OverlayTrigger>
+                    <div className="grade-value">{gradeValue(cs.value)}</div>
+                  </div>
                   <div className={`stat-block-value`}>
                     <div>{cs.comments}</div>
                   </div>
