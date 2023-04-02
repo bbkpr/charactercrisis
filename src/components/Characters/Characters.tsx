@@ -102,11 +102,16 @@ function Characters() {
               {sortStat || 'Select stat to sort'}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              {characters[0]?.character_stat.map((stat) => (
-                <Dropdown.Item key={stat.stat.name} eventKey={stat.stat.name}>
-                  {stat.stat.name}
+              <>
+                <Dropdown.Item key={'None'} eventKey={null}>
+                  None
                 </Dropdown.Item>
-              ))}
+                {characters[0]?.character_stat.map((stat) => (
+                  <Dropdown.Item key={stat.stat.name} eventKey={stat.stat.name}>
+                    {stat.stat.name}
+                  </Dropdown.Item>
+                ))}
+              </>
             </Dropdown.Menu>
           </Dropdown>
         </Col>

@@ -1,6 +1,10 @@
 @import './variables.scss';
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Ubuntu:wght@400;700&display=swap');
 
+:root {
+  --bs-body-font-size: 14px;
+}
+
 body {
   font-family: 'Lato', sans-serif;
 }
@@ -171,8 +175,8 @@ th {
   padding: 0.25em;
   margin: 0.25em;
   &-value {
-    height: 15em;
-    max-height: 15em;
+    height: 10.5em;
+    max-height: 10.5em;
     overflow-y: auto;
     scrollbar-width: thin !important;
     position: relative;
@@ -181,14 +185,11 @@ th {
     &.animating {
       transition: max-height 0.3s linear;
     }
+  }
 
-    @media (min-width: 992px) {
-      height: 14em;
-    }
-
-    @media (min-width: 1400px) {
-      height: 12em;
-    }
+  &-header-wrap {
+    flex-direction: column;
+    justify-content: space-around;
   }
 }
 
@@ -261,16 +262,22 @@ a {
 // Small UI state
 .small-ui {
   .character-row {
-    font-size: 0.8em;
+    font-size: 0.95em;
+  }
+
+  .character-description {
+    height: 8em;
+    max-height: 8em;
+    overflow-y: scroll;
   }
 
   .radar-wrap {
     display: none;
   }
 
-  //.stat-block {
-  //  font-size: 0.8em;
-  //}
+  .stat-block-header-wrap {
+    flex-direction: row;
+  }
 
   .stat-block-value {
     max-height: 6em;
@@ -305,19 +312,25 @@ a {
 // Compact UI state
 .compact-ui {
   .character-row {
-    font-size: 0.7em;
+    font-size: 0.9em;
+  }
+
+  .character-description {
+    height: 6em;
+    max-height: 6em;
+    overflow-y: scroll;
   }
 
   .radar-wrap {
     display: none;
   }
 
-  .stat-block {
-    font-size: 0.8em;
+  .stat-block-header-wrap {
+    flex-direction: row;
   }
 
   .stat-block-value {
-    max-height: 4em;
+    max-height: 5em;
   }
 
   .img-fluid-wrap-sm {
