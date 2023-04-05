@@ -65,9 +65,11 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
             <div>{character.game.name}</div>
           </Link>
           {mainImage && (
-            <div className="mt-2 mx-auto img-fluid-wrap-md character-image">
-              <Image fluid src={getPublicImageUrl(mainImage.path)} alt={mainImage.description} />
-            </div>
+            <Link to={`/characters/${character.id}`} className="character-name">
+              <div className="mt-2 mx-auto img-fluid-wrap-md character-image">
+                <Image fluid src={getPublicImageUrl(mainImage.path)} alt={mainImage.description} />
+              </div>
+            </Link>
           )}
           <div className="mt-2 character-description">{character.description}</div>
           <div className="character-tags clearfix mt-2">

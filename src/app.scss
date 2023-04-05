@@ -76,6 +76,12 @@ h6 {
   color: #bbb !important;
 }
 
+.grade-value {
+  font-size: 1.8em;
+  font-weight: bold;
+  transition: font-size 0.3s linear;
+}
+
 .grade {
   &-s {
     color: #00ccee !important;
@@ -117,12 +123,7 @@ h6 {
 .character-description {
   font-size: 1em;
   transition: font-size 0.3s linear;
-}
-
-.grade-value {
-  font-size: 1.5em;
-  font-weight: bold;
-  transition: font-size 0.3s linear;
+  overflow-y: scroll;
 }
 
 .bg-black {
@@ -188,32 +189,36 @@ th {
   }
 
   &-header-wrap {
+    font-size: 1.1em;
+    width: 65%;
+    margin: auto;
     align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
   }
 }
 
-.game-character-block {
-  border: 1px solid #444;
-  background-color: #222;
-  border-radius: 4px;
-
-  a {
-    color: var(--bs-link-color);
+// Comparison mode
+.character-details {
+  .stat-block-value {
+    height: 6em;
+    max-height: 6em;
   }
-  &-value {
-    height: 15em;
+
+  .character-description {
+    height: 6em;
+    max-height: 6em;
     overflow-y: auto;
-    scrollbar-width: thin !important;
+  }
 
-    @media (min-width: 992px) {
-      height: 14em;
-    }
-
-    @media (min-width: 1400px) {
-      height: 12em;
-    }
+  .character-tag {
+    background-color: #222;
+    border: 2px solid #444;
+    font-weight: bold;
+    margin-right: 0.1em;
+    margin-bottom: 0.1em;
+    padding: 0.1em;
+    border-radius: 4px;
+    font-size: 0.8em;
   }
 }
 
@@ -269,7 +274,7 @@ a {
   .character-description {
     height: 8em;
     max-height: 8em;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .radar-wrap {
@@ -319,7 +324,7 @@ a {
   .character-description {
     height: 6em;
     max-height: 6em;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .radar-wrap {
@@ -400,6 +405,29 @@ a {
       @media (min-width: 1400px) {
         height: 12em;
       }
+    }
+  }
+}
+
+.game-character-block {
+  border: 1px solid #444;
+  background-color: #222;
+  border-radius: 4px;
+
+  a {
+    color: var(--bs-link-color);
+  }
+  &-value {
+    height: 15em;
+    overflow-y: auto;
+    scrollbar-width: thin !important;
+
+    @media (min-width: 992px) {
+      height: 14em;
+    }
+
+    @media (min-width: 1400px) {
+      height: 12em;
     }
   }
 }

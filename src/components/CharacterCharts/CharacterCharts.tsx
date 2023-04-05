@@ -1,68 +1,51 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Col, Dropdown, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 import { loadCharacters } from '../../services/characters.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
-import { AboutBlurb } from '../About/About';
 import MainColumn from '../MainColumn/MainColumn';
-import CharacterItem from './CharacterItem';
+import StatBarChart from '../Characters/StatBarChart';
 
-function Characters() {
+function CharacterCharts() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     loadCharacters(dispatch);
   }, [dispatch]);
   const characters = useAppSelector((s) => s.characters);
+  const [sortStat, setSortStat] = useState<string | null>(null);
   const [uiState, setUiState] = useState(() => {
     const storedUiState = localStorage.getItem('uiState');
     return storedUiState ? JSON.parse(storedUiState) : 'Normal';
   });
 
-  useEffect(() => {
-    const statCards = document.querySelectorAll('.stat-card');
-    statCards.forEach((card) => {
-      card.classList.remove('animate');
+  const sortedCharacters = useMemo(() => {
+    if (!sortStat) {
+      return characters;
+    }
+    return [...characters].sort((a, b) => {
+      const aValue = a.character_stat.find((s) => s.stat.name === sortStat)?.value || 0;
+      const bValue = b.character_stat.find((s) => s.stat.name === sortStat)?.value || 0;
+      return bValue - aValue;
     });
-
-    setTimeout(() => {
-      statCards.forEach((card) => {
-        card.classList.add('animate');
-      });
-    }, 100);
-  }, [uiState]);
-
-  const [sortStat, setSortStat] = useState<string | null>(null);
-
-  useEffect(() => {
-    localStorage.setItem('uiState', JSON.stringify(uiState));
-  }, [uiState]);
-
-  const sortedCharacters = characters.slice().sort((a, b) => {
-    if (!sortStat) return 0;
-
-    const aStat = a.character_stat.find((stat) => stat.stat.name === sortStat);
-    const bStat = b.character_stat.find((stat) => stat.stat.name === sortStat);
-
-    if (!aStat || !bStat) return 0;
-
-    return bStat.value - aStat.value;
-  });
+  }, [characters, sortStat]);
 
   const handleSort = (stat: string) => {
     setSortStat(stat);
   };
 
+  useEffect(() => {
+    localStorage.setItem('uiState', JSON.stringify(uiState));
+  }, [uiState]);
+
   return (
     <MainColumn className={`${uiState === 'Small' ? 'small-ui' : uiState === 'Compact' ? 'compact-ui' : ''}`}>
       <Helmet>
-        <title>Character Crisis | Characters</title>
+        <title>Character Crisis | Character Stat Charts</title>
       </Helmet>
       <Row>
-        <Col>
-          <AboutBlurb />
-        </Col>
+        <Col>This page shows Character Stats sorted by value, high to low.</Col>
       </Row>
       <Row>
         <Col md={4}>
@@ -118,14 +101,12 @@ function Characters() {
         </Col>
       </Row>
       <Row>
-        <Col className="character-list">
-          {sortedCharacters.map((ch) => {
-            return ch && <CharacterItem key={ch.id} character={ch} />;
-          })}
+        <Col className="character-chart">
+          <StatBarChart sortedCharacters={sortedCharacters} />
         </Col>
       </Row>
     </MainColumn>
   );
 }
 
-export default Characters;
+export default CharacterCharts;
