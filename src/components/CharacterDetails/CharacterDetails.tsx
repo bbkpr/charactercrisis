@@ -19,7 +19,7 @@ function CharacterDetails() {
   const ch = characters.find((c) => c.id === Number(character_id));
 
   const [similarCharacters, setSimilarCharacters] = useState<Character[]>([]);
-  const [selectedGameId, setSelectedGameId] = useState<number>(0);
+  const [selectedGameId, setSelectedGameId] = useState<number | null>(null);
   const [uiState, setUiState] = useState(() => {
     const storedUiState = localStorage.getItem('uiState');
     return storedUiState ? JSON.parse(storedUiState) : 'Normal';
@@ -27,10 +27,6 @@ function CharacterDetails() {
 
   const scrollTopCharacterRef = createRef<HTMLDivElement>();
   const scrollTopSimilarRef = createRef<HTMLDivElement>();
-
-  const handleGameSelection = (gameId: number) => {
-    setSelectedGameId(gameId);
-  };
 
   useEffect(() => {
     loadCharacters(dispatch).then((lc) =>
@@ -62,7 +58,7 @@ function CharacterDetails() {
       if (characters) {
         const target = characters.find((c) => c.id === parseInt(character_id));
         const similars = characters
-          .filter((c) => c.id !== target.id && (selectedGameId !== 0 ? c.game_id === selectedGameId : true))
+          .filter((c) => c.id !== target.id && (selectedGameId ? c.game_id === selectedGameId : true))
           .map((c) => {
             const scoreDifference = calculateScoreDifference(c, target);
             const commonTags = c.character_tag.filter((t1) =>
@@ -100,8 +96,8 @@ function CharacterDetails() {
         <Helmet>
           <title>Character Crisis | {ch.name}</title>
         </Helmet>
-        <Row className="mb-2">
-          <Col md={4}>
+        <Row>
+          <Col>
             <h6>
               <Link to={'/characters'}>Characters</Link>
               {' > '}
@@ -110,53 +106,55 @@ function CharacterDetails() {
               <Link to={`/characters/${ch?.id}`}>{ch?.name}</Link>
             </h6>
           </Col>
-          <Col md={4}>
-            <div className="fw-bold text-center">View</div>
-            <div className="text-center">
-              <div className="btn-group text-end" role="group">
-                <button
-                  className={`btn btn-primary ${uiState === 'Normal' ? 'active' : ''}`}
-                  onClick={() => setUiState('Normal')}
-                >
-                  Normal
-                </button>
-                <button
-                  className={`btn btn-primary ${uiState === 'Small' ? 'active' : ''}`}
-                  onClick={() => setUiState('Small')}
-                >
-                  Small
-                </button>
-                <button
-                  className={`btn btn-primary ${uiState === 'Compact' ? 'active' : ''}`}
-                  onClick={() => setUiState('Compact')}
-                >
-                  Compact
-                </button>
-              </div>
+        </Row>
+        <Row className="mt-2">
+          <Col sm={6} className="d-flex flex-column align-items-start mt-1 mt-sm-0">
+            <div className="fw-bold ms-1">View</div>
+            <div className="btn-group" role="group">
+              <button
+                className={`btn btn-secondary ${uiState === 'Normal' ? 'active' : ''}`}
+                onClick={() => setUiState('Normal')}
+              >
+                Normal
+              </button>
+              <button
+                className={`btn btn-secondary ${uiState === 'Small' ? 'active' : ''}`}
+                onClick={() => setUiState('Small')}
+              >
+                Small
+              </button>
+              <button
+                className={`btn btn-secondary ${uiState === 'Compact' ? 'active' : ''}`}
+                onClick={() => setUiState('Compact')}
+              >
+                Compact
+              </button>
             </div>
           </Col>
-          <Col md={4}>
-            <div className="fw-bold text-end">Select a Game to compare</div>
-            <Dropdown className="text-end" onSelect={(v) => handleGameSelection(parseInt(v))}>
-              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                {games.find((g) => g.id === selectedGameId)?.name ?? 'All Games'}
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <>
-                  <Dropdown.Item key="0" eventKey="0">
+          <Col sm={6} className="sort-filter-wrap d-flex justify-content-sm-end">
+            <div className="sort-filter-item d-flex flex-column align-items-end">
+              <div className="fw-bold me-1">Filter by Game</div>
+              <Dropdown className="text-end" onSelect={(e: string | null) => setSelectedGameId(e ? parseInt(e) : null)}>
+                <Dropdown.Toggle variant="secondary" id="filter-dropdown">
+                  {selectedGameId ? games.find((game) => game.id === selectedGameId)?.name || 'All Games' : 'All Games'}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item key={'All Games'} eventKey={null}>
                     All Games
                   </Dropdown.Item>
-                  {games.map((game) => (
-                    <Dropdown.Item key={game.id} eventKey={game.id}>
-                      {game.name}
-                    </Dropdown.Item>
-                  ))}
-                </>
-              </Dropdown.Menu>
-            </Dropdown>
+                  {games
+                    .filter((g) => g.character.length > 0)
+                    .map((game) => (
+                      <Dropdown.Item key={game.name} eventKey={game.id.toString()}>
+                        {game.name}
+                      </Dropdown.Item>
+                    ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
           </Col>
         </Row>
-        <Row>
+        <Row className="mt-2">
           <Col className="me-md-2 sticky-col" id="character-details-selected">
             <div ref={scrollTopCharacterRef}></div>
             <h6>
