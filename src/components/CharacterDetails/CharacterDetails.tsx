@@ -29,9 +29,11 @@ function CharacterDetails() {
   const scrollTopSimilarRef = createRef<HTMLDivElement>();
 
   useEffect(() => {
-    loadCharacters(dispatch).then((lc) =>
-      setSelectedGameId(lc.payload.data.find((c) => c.id === Number(character_id))?.game_id ?? 0)
-    );
+    loadCharacters(dispatch).then((lc) => {
+      if (selectedGameId !== null) {
+        setSelectedGameId(lc.payload.data.find((c) => c.id === Number(character_id))?.game_id ?? 0);
+      }
+    });
     loadGames(dispatch);
   }, [character_id, dispatch]);
 
