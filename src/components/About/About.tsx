@@ -9,7 +9,7 @@ export function AboutBlurb() {
     <div className="blurb">
       <p>
         Character Crisis is a utility to help you pick your next Fighting Game character! Right now, it is in{' '}
-        <strong>Beta</strong>, last updated April 4, 2023. Please be patient as I continue to add features and data for
+        <strong>Beta</strong>, last updated April 6, 2023. Please be patient as I continue to add features and data for
         more characters and games. This project is open source, everything can be found on{' '}
         <a href="https://github.com/bbkpr/charactercrisis">our Github!</a>
       </p>
