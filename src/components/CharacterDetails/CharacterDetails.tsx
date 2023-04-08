@@ -29,11 +29,7 @@ function CharacterDetails() {
   const scrollTopSimilarRef = createRef<HTMLDivElement>();
 
   useEffect(() => {
-    loadCharacters(dispatch).then((lc) => {
-      if (selectedGameId !== null) {
-        setSelectedGameId(lc.payload.data.find((c) => c.id === Number(character_id))?.game_id ?? 0);
-      }
-    });
+    loadCharacters(dispatch);
     loadGames(dispatch);
   }, [character_id, dispatch, selectedGameId]);
 
@@ -69,11 +65,6 @@ function CharacterDetails() {
             const adjustedScoreDifference = commonTags.reduce(
               (acc, _, idx) => Math.floor(acc * (1 - 0.2 * (idx + 1))),
               scoreDifference
-            );
-            console.log(
-              `${c.name} score diff: ${adjustedScoreDifference} | common tags: (${commonTags.length}): ${commonTags
-                .map((ct) => ct.tag.name)
-                .join(', ')}`
             );
             return { ...c, scoreDifference: adjustedScoreDifference };
           })
