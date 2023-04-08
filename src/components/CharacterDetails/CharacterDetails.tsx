@@ -35,7 +35,7 @@ function CharacterDetails() {
       }
     });
     loadGames(dispatch);
-  }, [character_id, dispatch]);
+  }, [character_id, dispatch, selectedGameId]);
 
   useEffect(() => {
     scrollTopCharacterRef.current?.scrollIntoView({ behavior: 'auto' });

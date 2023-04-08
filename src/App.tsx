@@ -13,6 +13,7 @@ import AboutPage from './components/About/About';
 import Characters from './components/Characters/Characters';
 import GameDetails from './components/GameDetails/GameDetails';
 import CharacterCharts from './components/CharacterCharts/CharacterCharts';
+import CharacterQuiz from './components/CharacterQuiz/CharacterQuiz';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/auth" element={<SupabaseAuth />} />
         <Route path="/characters" element={<Characters />} />
         <Route path="/charactercharts" element={<CharacterCharts />} />
+        <Route path="/characterquiz" element={<CharacterQuiz />} />
         <Route path="/characters/:character_id" element={<CharacterDetails />} />
         <Route path="/games" element={<Games />} />
         <Route path="/games/:game_id" element={<GameDetails />} />

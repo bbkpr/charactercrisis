@@ -22,9 +22,9 @@ function Layout() {
             >
               Characters
             </Nav.Link>
-            {/* <Nav.Link as={Link} to="/charactercharts" active={location.pathname === '/charactercharts'}>
-              Character Charts
-            </Nav.Link> */}
+            <Nav.Link as={Link} to="/characterquiz" active={location.pathname === '/characterquiz'}>
+              Character Quiz
+            </Nav.Link>
             <Nav.Link as={Link} to="/games" active={location.pathname.startsWith('/games')}>
               Games
             </Nav.Link>

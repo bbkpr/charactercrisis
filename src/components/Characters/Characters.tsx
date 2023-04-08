@@ -76,7 +76,10 @@ function Characters() {
           <h6>
             <Link to={'/characters'}>Characters</Link>
           </h6>
-          <div className="fw-bold ms-1">Click any Character to compare them to others!</div>
+          <div className="fw-bold ms-1">
+            Click any Character to compare them to others! Not sure where to start?{' '}
+            <Link to={'/characterquiz'}>Try taking the Character Quiz!</Link>
+          </div>
         </Col>
       </Row>
       <Row className="mt-2">
