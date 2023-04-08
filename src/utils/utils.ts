@@ -73,3 +73,17 @@ export const calculateScoreDifference = (c1: Character, c2: Character) => {
     0
   );
 };
+
+export const stringToRGBA = (input: string, alpha = 1) => {
+  let hash = 0;
+
+  for (let i = 0; i < input.length; i++) {
+    hash = input.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  const r = (hash & 0xff0000) >> 16;
+  const g = (hash & 0x00ff00) >> 8;
+  const b = hash & 0x0000ff;
+
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};

@@ -258,6 +258,10 @@ a {
   height: 75vh;
   overflow-y: auto;
   scrollbar-width: thin !important;
+
+  &-taller {
+    height: 80vh;
+  }
 }
 
 .tooltip-cursor-help {
@@ -429,4 +433,16 @@ a {
       height: 12em;
     }
   }
+}
+
+.quiz-chart-wrap {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.quiz-question {
+  border: 1px solid #444;
+  background-color: #222;
+  border-radius: 4px;
+  padding: 0.25em;
+  margin: 0.25em;
 }

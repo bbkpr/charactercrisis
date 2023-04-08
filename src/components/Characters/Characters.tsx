@@ -3,7 +3,7 @@ import { Col, Dropdown, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
-import { loadCharacters } from '../../services/characters.service';
+import { loadCharacters, loadStats } from '../../services/characters.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { AboutBlurb } from '../About/About';
 import MainColumn from '../MainColumn/MainColumn';
@@ -15,9 +15,11 @@ function Characters() {
   useEffect(() => {
     loadCharacters(dispatch);
     loadGames(dispatch);
+    loadStats(dispatch);
   }, [dispatch]);
   const characters = useAppSelector((s) => s.characters);
   const games = useAppSelector((s) => s.games);
+  const stats = useAppSelector((s) => s.stats);
   const [uiState, setUiState] = useState(() => {
     const storedUiState = localStorage.getItem('uiState');
     return storedUiState ? JSON.parse(storedUiState) : 'Normal';
@@ -37,7 +39,7 @@ function Characters() {
     }, 100);
   }, [uiState]);
 
-  const [sortStat, setSortStat] = useState<string | null>(null);
+  const [sortStat, setSortStat] = useState<number | null>(null);
 
   useEffect(() => {
     localStorage.setItem('uiState', JSON.stringify(uiState));
@@ -49,15 +51,15 @@ function Characters() {
     .sort((a, b) => {
       if (!sortStat) return 0;
 
-      const aStat = a.character_stat.find((stat) => stat.stat.name === sortStat);
-      const bStat = b.character_stat.find((stat) => stat.stat.name === sortStat);
+      const aStat = a.character_stat.find((stat) => stat.stat.id === sortStat);
+      const bStat = b.character_stat.find((stat) => stat.stat.id === sortStat);
 
       if (!aStat || !bStat) return 0;
 
-      return bStat.value - aStat.value;
+      return aStat.value > bStat.value ? -1 : 1;
     });
 
-  const handleSort = (stat: string) => {
+  const handleSort = (stat: number) => {
     setSortStat(stat);
   };
 
@@ -76,7 +78,10 @@ function Characters() {
           <h6>
             <Link to={'/characters'}>Characters</Link>
           </h6>
-          <div className="fw-bold ms-1">Click any Character to compare them to others!</div>
+          <div className="fw-bold ms-1">
+            Click any Character to compare them to others! Not sure where to start?{' '}
+            <Link to={'/characterquiz'}>Try taking the Character Quiz!</Link>
+          </div>
         </Col>
       </Row>
       <Row className="mt-2">
@@ -126,18 +131,18 @@ function Characters() {
           </div>
           <div className="sort-filter-item d-flex flex-column align-items-end ms-2">
             <div className="fw-bold me-1">Sort</div>
-            <Dropdown className="text-end" onSelect={(e: string | null) => handleSort(e || '')}>
+            <Dropdown className="text-end" onSelect={(e: string | null) => handleSort(e != null ? parseInt(e) : null)}>
               <Dropdown.Toggle variant="secondary" id="sort-dropdown">
-                {sortStat || 'Name'}
+                {stats.find((s) => s.id === sortStat)?.name || 'Name'}
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <>
                   <Dropdown.Item key={'Name'} eventKey={null}>
                     Name
                   </Dropdown.Item>
-                  {characters[0]?.character_stat.map((stat) => (
-                    <Dropdown.Item key={stat.stat.name} eventKey={stat.stat.name}>
-                      {stat.stat.name}
+                  {stats.map((stat) => (
+                    <Dropdown.Item key={stat.name} eventKey={stat.id}>
+                      {stat.name}
                     </Dropdown.Item>
                   ))}
                 </>
