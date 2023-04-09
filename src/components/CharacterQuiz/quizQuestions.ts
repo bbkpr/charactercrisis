@@ -1,23 +1,32 @@
 export type Weight = number;
-export type Stat = string;
+export type Stat =
+  | 'Rushdown'
+  | 'Zoning'
+  | 'Damage'
+  | 'Footsies'
+  | 'Meter'
+  | 'Defense'
+  | 'Mobility'
+  | 'Ease Of Use'
+  | 'Mixups'
+  | 'Okizeme';
 export interface Question {
   questionText: string;
   answers: Array<{
     text: string;
-    weightEffects: Record<Stat, Weight>;
+    weightEffects: Partial<Record<Stat, Weight>>;
   }>;
 }
 export const questions: Question[] = [
   {
-    questionText: '1. What range do you prefer to fight at?',
+    questionText: 'What range do you prefer to fight at?',
     answers: [
       {
         text: 'I like it up close and personal.',
         weightEffects: {
           Rushdown: 10,
           Zoning: -10,
-          Damage: 5,
-          Mobility: 5
+          Mobility: 10
         }
       },
       {
@@ -26,8 +35,7 @@ export const questions: Question[] = [
           Rushdown: 5,
           Zoning: -5,
           Footsies: 5,
-          Mobility: 10,
-          Mixups: 5
+          Mobility: 5
         }
       },
       {
@@ -35,7 +43,6 @@ export const questions: Question[] = [
         weightEffects: {
           Rushdown: -5,
           Zoning: 5,
-          Damage: 0,
           Footsies: 5,
           Mobility: -5,
           Okizeme: 5
@@ -47,25 +54,22 @@ export const questions: Question[] = [
           Rushdown: -10,
           Zoning: 10,
           Footsies: 5,
-          Mixups: -10
+          Mixups: -5
         }
       }
     ]
   },
   {
-    questionText: "2. When in a match, what's your primary focus or favorite thing to do?",
+    questionText: "When in a match, what's your primary focus or favorite thing to do?",
     answers: [
       {
         text: 'Keeping the pressure on my opponent.',
         weightEffects: {
           Rushdown: 10,
-          Zoning: -5,
-          Damage: 5,
-          Footsies: 5,
+          Zoning: -10,
           Meter: 5,
           Defense: -5,
-          Mobility: 5,
-          Mixups: 10,
+          Mixups: 5,
           Okizeme: 5
         }
       },
@@ -73,7 +77,8 @@ export const questions: Question[] = [
         text: 'Outmaneuvering my opponent.',
         weightEffects: {
           Footsies: 10,
-          Mobility: 10
+          Mobility: 10,
+          Rushdown: 5
         }
       },
       {
@@ -98,7 +103,7 @@ export const questions: Question[] = [
     ]
   },
   {
-    questionText: "3. What's the most important or enjoyable quality in a character for you?",
+    questionText: "What's the most important or enjoyable quality in a character for you?",
     answers: [
       {
         text: 'Damage. Everything else is secondary.',
@@ -106,8 +111,7 @@ export const questions: Question[] = [
           Damage: 15,
           Meter: 5,
           Defense: -10,
-          Mobility: -10,
-          'Ease Of Use': -10
+          Mobility: -10
         }
       },
       {
@@ -116,8 +120,7 @@ export const questions: Question[] = [
           Damage: -10,
           Defense: 15,
           Mobility: -5,
-          'Ease Of Use': 5,
-          Mixups: -5
+          'Ease Of Use': 5
         }
       },
       {
@@ -126,18 +129,18 @@ export const questions: Question[] = [
           Rushdown: 10,
           Zoning: -5,
           Damage: -5,
-          Footsies: 10,
-          Meter: 0,
+          Footsies: 5,
           Defense: -5,
-          Mobility: 15,
-          'Ease Of Use': -5,
-          Mixups: 10
+          Mobility: 15
         }
       },
       {
         text: 'Utility. Give me a lot of tricks, tools and options to play with.',
         weightEffects: {
-          'Ease Of Use': -10
+          'Ease Of Use': -10,
+          Footsies: 5,
+          Mixups: 5,
+          Meter: 5
         }
       },
       {
@@ -149,41 +152,13 @@ export const questions: Question[] = [
     ]
   },
   {
-    questionText: '4. Does the idea of stances or multiple movesets in the same character sound appealing?',
-    answers: [
-      {
-        text: 'I like the idea, it would give me more options to play with.',
-        weightEffects: {
-          Rushdown: 5,
-          Zoning: 5,
-          Damage: 5,
-          Footsies: 0,
-          Meter: 0,
-          Defense: 0,
-          Mobility: 5,
-          'Ease Of Use': -10,
-          Mixups: 10,
-          Okizeme: 5
-        }
-      },
-      {
-        text: 'I would prefer to just play a character with one moveset.',
-        weightEffects: {}
-      },
-      {
-        text: 'No preference.',
-        weightEffects: {}
-      }
-    ]
-  },
-  {
-    questionText: '5. Would you like a projectile?',
+    questionText: 'Would you like a projectile?',
     answers: [
       {
         text: 'I want at least a standard full screen horizontal moving one.',
         weightEffects: {
           Rushdown: -5,
-          Zoning: 10,
+          Zoning: 5,
           Footsies: 5,
           Okizeme: 5
         }
@@ -191,24 +166,26 @@ export const questions: Question[] = [
       {
         text: "As long as it controls good space it doesn't have to be full screen or horizontal moving.",
         weightEffects: {
-          Zoning: 5,
-          Okizeme: 0
+          Footsies: 5,
+          Zoning: 5
         }
       },
       {
         text: 'I want a tricky, meter-only, controllable, or some kind of unique projectile people have trouble dealing with.',
         weightEffects: {
           Rushdown: -5,
-          Zoning: 10,
+          Zoning: 5,
           Meter: 5,
           'Ease Of Use': -5,
-          Mixups: 10,
+          Mixups: 5,
           Okizeme: 5
         }
       },
       {
         text: 'I do not need projectiles to win.',
         weightEffects: {
+          Footsies: 5,
+          Mixups: 5,
           Rushdown: 10,
           Zoning: -10
         }
@@ -220,18 +197,18 @@ export const questions: Question[] = [
     ]
   },
   {
-    questionText: "6. What's your current skill level in fighting games?",
+    questionText: "What's your current skill level in fighting games?",
     answers: [
       {
         text: 'I am new to fighting games.',
         weightEffects: {
-          'Ease Of Use': 15
+          'Ease Of Use': 5
         }
       },
       {
-        text: 'I have played some fighting games, or have played Guilty Gear for a while.',
+        text: 'I have played some fighting games.',
         weightEffects: {
-          'Ease Of Use': 5
+          'Ease Of Use': 0
         }
       },
       {
@@ -242,6 +219,207 @@ export const questions: Question[] = [
       },
       {
         text: "Don't factor my skill in. I'll play who I want.",
+        weightEffects: {}
+      }
+    ]
+  }
+];
+
+export const tagQuestions: Question[] = [
+  {
+    questionText: 'Which type of movement ability would you rather have?',
+    answers: [
+      {
+        text: 'Unique Movement (ex. Wall Run, Flight)',
+        weightEffects: {
+          Footsies: 5,
+          Mobility: 10,
+          'Ease Of Use': -10
+        }
+      },
+      {
+        text: 'Teleport: Near instantaneous movement',
+        weightEffects: {
+          Footsies: 5,
+          Mobility: 10,
+          'Ease Of Use': -5
+        }
+      },
+      {
+        text: 'Command Movement: Attacks or specials that cause significant movement',
+        weightEffects: {
+          Defense: -5,
+          Mobility: 5,
+          Footsies: 5
+        }
+      }
+    ]
+  },
+  {
+    questionText: 'Which type of projectile would you prefer?',
+    answers: [
+      {
+        text: 'Fireball: A projectile that travels across the screen.',
+        weightEffects: {
+          Rushdown: 5,
+          Zoning: 5
+        }
+      },
+      {
+        text: 'Beam: A ranged attack or projectile that covers most of the screen at once.',
+        weightEffects: {
+          Footsies: 5,
+          Zoning: 5
+        }
+      },
+      {
+        text: 'None: I wanna punch stuff.',
+        weightEffects: {
+          Rushdown: 10,
+          Mixups: 5,
+          Zoning: -10,
+          'Ease Of Use': -5
+        }
+      }
+    ]
+  },
+  {
+    questionText: 'What kind of defensive ability do you prefer?',
+    answers: [
+      {
+        text: 'Super Armor: Moves that ignore one or more strikes or projectiles, but damage is still taken.',
+        weightEffects: {
+          Defense: 5,
+          Okizeme: 5
+        }
+      },
+      {
+        text: "Guard Point: Moves that clash with and override an opponent's attack, taking reduced damage.",
+        weightEffects: {
+          Rushdown: 5,
+          Okizeme: 5
+        }
+      },
+      {
+        text: 'Projectile Armor: Moves that ignore one or more projectiles, but damage is still taken.',
+        weightEffects: {
+          Defense: 5,
+          Footsies: 5,
+          Rushdown: 5
+        }
+      }
+    ]
+  },
+  {
+    questionText: 'Which type of attack appeals to you the most?',
+    answers: [
+      {
+        text: 'Life Steal: A move that steals health from the opponent.',
+        weightEffects: {
+          Damage: 5,
+          Defense: 5
+        }
+      },
+      {
+        text: 'Prison: An attack that limits the distance and/or directions to which an opponent can move for a period of time.',
+        weightEffects: {
+          Footsies: 5,
+          Mixups: 5,
+          Zoning: 5
+        }
+      },
+      {
+        text: 'Reflector: Attack that reflects projectiles back at the opponent.',
+        weightEffects: {
+          Defense: 5,
+          Footsies: 5,
+          Zoning: 5
+        }
+      }
+    ]
+  },
+  {
+    questionText: 'How important is speed to you?',
+    answers: [
+      {
+        text: "Speedy: If you ain't first, you're last",
+        weightEffects: {
+          Defense: -10,
+          Mobility: 10
+        }
+      },
+      {
+        text: 'Relaxed: I like to take my time, and I can take a few hits along the way.',
+        weightEffects: {
+          Defense: 10,
+          Mobility: -10
+        }
+      },
+      {
+        text: "No Preference: I'll get there when I get there.",
+        weightEffects: {}
+      }
+    ]
+  },
+  {
+    questionText: 'What kind of special move do you prefer?',
+    answers: [
+      {
+        text: 'Rekka: Allows for multiple stages (usually 3) with successive inputs.',
+        weightEffects: {
+          Damage: 5
+        }
+      },
+      {
+        text: 'Command Grab: Causes an untechable grab.',
+        weightEffects: {
+          Damage: -5,
+          Mixups: 5
+        }
+      },
+      {
+        text: 'Status Effect: Causes a lasting problem for the opponent, such as freezing, possession, imprisonment, tethering, etc.',
+        weightEffects: {
+          Meter: 5,
+          Zoning: 5
+        }
+      }
+    ]
+  },
+  {
+    questionText: 'What kind of unique character trait interests you?',
+    answers: [
+      {
+        text: 'Stance: Alternate mode that adds, removes, or modifies moves and stats of the character.',
+        weightEffects: {
+          Mixups: 5,
+          'Ease Of Use': -5
+        }
+      },
+      {
+        text: 'Unique Resource: Resource or meter that is not part of generic system mechanics.',
+        weightEffects: {
+          Damage: 5,
+          'Ease Of Use': -10
+        }
+      },
+      {
+        text: 'Puppet: Control one or more subordinates who usually move and attack semi-independently.',
+        weightEffects: {
+          Zoning: 5,
+          Mixups: 10,
+          'Ease Of Use': -10
+        }
+      },
+      {
+        text: 'Install: Special move or trait that causes the character to enter an elevated state, usually with additional moves and buffs.',
+        weightEffects: {
+          Damage: 5,
+          'Ease Of Use': -5
+        }
+      },
+      {
+        text: 'None: Keep it vanilla.',
         weightEffects: {}
       }
     ]

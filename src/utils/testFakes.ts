@@ -1,6 +1,6 @@
 import { Game, Stat, Tag, Character, Image } from '../models';
 
-const fakedGame: Game = {
+export const fakedGame: Game = {
   id: 1,
   created_at: null,
   updated_at: null,
@@ -10,7 +10,7 @@ const fakedGame: Game = {
   character: []
 };
 
-const fakedImage: Image = {
+export const fakedImage: Image = {
   id: 1,
   created_at: null,
   updated_at: null,
@@ -20,7 +20,7 @@ const fakedImage: Image = {
   path: 'faked-path'
 };
 
-const fakedStat: Stat = {
+export const fakedStat: Stat = {
   id: 1,
   created_at: null,
   updated_at: null,
@@ -29,15 +29,16 @@ const fakedStat: Stat = {
   abbreviation: 'FS'
 };
 
-const fakedTag: Tag = {
+export const fakedTag: Tag = {
   id: 1,
   created_at: null,
   updated_at: null,
   name: 'Faked Tag',
+  category: 'Offense',
   description: 'A faked tag for demonstration purposes.'
 };
 
-const fakedCharacters: Character[] = [
+export const fakedCharacters: Character[] = [
   {
     id: 1,
     created_at: null,

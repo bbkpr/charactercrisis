@@ -59,7 +59,8 @@ character_tag (
     name,
     description,
     created_at,
-    updated_at
+    updated_at,
+    category
   )
 )
 `;
@@ -70,7 +71,6 @@ export const loadCharacters = async (dispatch: AppDispatch) => {
       (await supabase
         .from('character')
         .select(characterSelector)
-        .order('game_id')
         .order('name')
         .order('stat_id', { foreignTable: 'character_stat' })) as EntitiesData<Character>
     )
@@ -134,7 +134,8 @@ export const loadStats = async (dispatch: AppDispatch) => {
                   name,
                   description,
                   created_at,
-                  updated_at
+                  updated_at,
+                  category
                 )
               )
             )

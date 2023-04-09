@@ -47,19 +47,16 @@ function Characters() {
 
   const sortedCharacters = characters
     .filter((c) => (selectedGameId ? c.game_id === selectedGameId : true))
-    .slice()
     .sort((a, b) => {
       if (!sortStat) return 0;
 
-      const aStat = a.character_stat.find((stat) => stat.stat.id === sortStat);
-      const bStat = b.character_stat.find((stat) => stat.stat.id === sortStat);
-
-      if (!aStat || !bStat) return 0;
+      const aStat = a.character_stat.find((stat) => stat.stat.id === sortStat) || { value: 0 };
+      const bStat = b.character_stat.find((stat) => stat.stat.id === sortStat) || { value: 0 };
 
       return aStat.value > bStat.value ? -1 : 1;
     });
 
-  const handleSort = (stat: number) => {
+  const handleSort = (stat: number | null) => {
     setSortStat(stat);
   };
 
