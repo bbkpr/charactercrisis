@@ -17,6 +17,10 @@ export interface Character extends Entity {
   character_tag: CharacterTag[];
 }
 
-export interface CharacterWithScoreDifference extends Character {
-  scoreDifference: number;
+export interface CharacterWithStatDifference extends Character {
+  statDifference: number;
+}
+
+export interface CharacterWithRelevance extends Character {
+  relevance: number;
 }

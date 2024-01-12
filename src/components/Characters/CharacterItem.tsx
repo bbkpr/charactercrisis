@@ -5,7 +5,8 @@ import { Character } from '../../models/character';
 import { getPublicImageUrl } from '../../services/images.service';
 import { letterGrade, normalizeStatScore } from '../../utils/utils';
 import { StatRadar } from '../StatRadar/StatRadar';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
+import React from 'react';
 
 const gradeValue = (value: number) => {
   const grade = letterGrade(value);
@@ -15,10 +16,11 @@ const gradeValue = (value: number) => {
 export interface ICharacterItemProps {
   character: Character;
   isComparing?: boolean;
-  scoreDifference?: number;
+  relevance?: number;
+  statDifference?: number;
 }
 
-function CharacterItem({ character, isComparing, scoreDifference }: ICharacterItemProps) {
+function CharacterItem({ character, isComparing, relevance, statDifference }: ICharacterItemProps) {
   const mainImage = character.character_image.find((i) => i.image_type === 'main')?.image;
   const statsData =
     character != null
@@ -28,22 +30,22 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
         }))
       : [];
 
-  useEffect(() => {
-    const statBlockValues = document.querySelectorAll('.stat-block-value');
-    statBlockValues.forEach((statBlockValue) => {
-      statBlockValue.addEventListener('transitionend', () => {
-        statBlockValue.classList.remove('animating');
-      });
-    });
+  // useEffect(() => {
+  //   const statBlockValues = document.querySelectorAll('.stat-block-value');
+  //   statBlockValues.forEach((statBlockValue) => {
+  //     statBlockValue.addEventListener('transitionend', () => {
+  //       statBlockValue.classList.remove('animating');
+  //     });
+  //   });
 
-    return () => {
-      statBlockValues.forEach((statBlockValue) => {
-        statBlockValue.removeEventListener('transitionend', () => {
-          statBlockValue.classList.remove('animating');
-        });
-      });
-    };
-  }, []);
+  //   return () => {
+  //     statBlockValues.forEach((statBlockValue) => {
+  //       statBlockValue.removeEventListener('transitionend', () => {
+  //         statBlockValue.classList.remove('animating');
+  //       });
+  //     });
+  //   };
+  // }, []);
   return (
     <Row key={character.id} className="my-3 px-2 py-2 character-row">
       <Col xs="4" md="3" className="text-center">
@@ -89,14 +91,15 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
               <StatRadar character_name={character.name} data={statsData} />
             </div>
           ) : null}
-          {scoreDifference && <div className="mt-2">Score Difference: {scoreDifference}</div>}
+          {relevance && <div className="mt-2">Relevance: {relevance}</div>}
+          {statDifference && <div className="mt-2">Stat Difference: {relevance}</div>}
         </>
       </Col>
       <Col xs="8" md="9">
         <Row className="justify-content-around">
           {character.character_stat.map((cs, idx) => {
             return (
-              <Col className="px-0" md={isComparing ? 6 : idx < 3 || idx > 6 ? 4 : 3} key={cs.stat_id}>
+              <Col className="px-0" xs={6} md={isComparing ? 6 : idx < 3 || idx > 6 ? 4 : 3} key={cs.stat_id}>
                 <div className="stat-block text-center">
                   <div className="stat-block-header-wrap d-flex">
                     <OverlayTrigger
@@ -123,4 +126,4 @@ function CharacterItem({ character, isComparing, scoreDifference }: ICharacterIt
   );
 }
 
-export default CharacterItem;
+export default React.memo(CharacterItem);

@@ -6,7 +6,7 @@
   "editor.formatOnSave": true,
   "importSorter.generalConfiguration.sortOnBeforeSave": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "deno.enable": true,
   "deno.unstable": true,

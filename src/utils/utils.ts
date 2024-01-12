@@ -64,7 +64,7 @@ export const normalizedLetterGrade = (nStatScore: number) => {
     : 'U';
 };
 
-export const calculateScoreDifference = (c1: Character, c2: Character) => {
+export const calculateStatDifferences = (c1: Character, c2: Character) => {
   const c1Stats = new Map(c1.character_stat.map((stat) => [stat.stat_id, stat.value]));
   const c2Stats = new Map(c2.character_stat.map((stat) => [stat.stat_id, stat.value]));
 

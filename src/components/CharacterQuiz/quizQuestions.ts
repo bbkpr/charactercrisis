@@ -284,61 +284,6 @@ export const tagQuestions: Question[] = [
     ]
   },
   {
-    questionText: 'What kind of defensive ability do you prefer?',
-    answers: [
-      {
-        text: 'Super Armor: Moves that ignore one or more strikes or projectiles, but damage is still taken.',
-        weightEffects: {
-          Defense: 5,
-          Okizeme: 5
-        }
-      },
-      {
-        text: "Guard Point: Moves that clash with and override an opponent's attack, taking reduced damage.",
-        weightEffects: {
-          Rushdown: 5,
-          Okizeme: 5
-        }
-      },
-      {
-        text: 'Projectile Armor: Moves that ignore one or more projectiles, but damage is still taken.',
-        weightEffects: {
-          Defense: 5,
-          Footsies: 5,
-          Rushdown: 5
-        }
-      }
-    ]
-  },
-  {
-    questionText: 'Which type of attack appeals to you the most?',
-    answers: [
-      {
-        text: 'Life Steal: A move that steals health from the opponent.',
-        weightEffects: {
-          Damage: 5,
-          Defense: 5
-        }
-      },
-      {
-        text: 'Prison: An attack that limits the distance and/or directions to which an opponent can move for a period of time.',
-        weightEffects: {
-          Footsies: 5,
-          Mixups: 5,
-          Zoning: 5
-        }
-      },
-      {
-        text: 'Reflector: Attack that reflects projectiles back at the opponent.',
-        weightEffects: {
-          Defense: 5,
-          Footsies: 5,
-          Zoning: 5
-        }
-      }
-    ]
-  },
-  {
     questionText: 'How important is speed to you?',
     answers: [
       {

@@ -54,4 +54,42 @@ xdescribe('Characters component', () => {
     fireEvent.click(await screen.findByText('Normal'));
     expect(await screen.findByText('Normal')).toHaveClass('active');
   });
+
+  // Filters characters by selected game
+  it('should filter characters by selected game', () => {
+    // Mock dependencies
+    const mockDispatch = jest.fn();
+    const mockUseAppDispatch = jest.spyOn(redux, 'useAppDispatch').mockReturnValue(mockDispatch);
+    const mockCharacters = [
+      { id: 1, name: 'Character 1', game_id: 1 },
+      { id: 2, name: 'Character 2', game_id: 2 },
+      { id: 3, name: 'Character 3', game_id: 1 }
+    ];
+    const mockGames = [
+      { id: 1, name: 'Game 1' },
+      { id: 2, name: 'Game 2' }
+    ];
+    const mockStats = [
+      { id: 1, name: 'Stat 1' },
+      { id: 2, name: 'Stat 2' }
+    ];
+    const mockUseAppSelector = jest.spyOn(redux, 'useAppSelector');
+    mockUseAppSelector.mockReturnValueOnce(mockCharacters);
+    mockUseAppSelector.mockReturnValueOnce(mockGames);
+    mockUseAppSelector.mockReturnValueOnce(mockStats);
+
+    // Render the component
+    render(<Characters />);
+
+    // Select a game
+    fireEvent.click(screen.getByText('Game 1'));
+
+    // Assertions
+    expect(mockUseAppDispatch).toHaveBeenCalled();
+    expect(mockDispatch).toHaveBeenCalledTimes(4);
+    expect(mockDispatch).toHaveBeenCalledWith(charactersLoaded(mockCharacters));
+    expect(mockDispatch).toHaveBeenCalledWith(gamesLoaded(mockGames));
+    expect(mockDispatch).toHaveBeenCalledWith(statsLoaded(mockStats));
+    expect(screen.getAllByTestId('character-item')).toHaveLength(2);
+  });
 });

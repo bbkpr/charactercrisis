@@ -2,12 +2,12 @@ import { createRef, useEffect, useState } from 'react';
 import { Col, Dropdown, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
-import { Character, CharacterWithScoreDifference } from '../../models/character';
+import { Character, CharacterWithStatDifference } from '../../models/character';
 
 import { loadCharacters } from '../../services/characters.service';
 import { loadGames } from '../../services/games.service';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
-import { calculateScoreDifference } from '../../utils/utils';
+import { calculateStatDifferences } from '../../utils/utils';
 import CharacterItem from '../Characters/CharacterItem';
 import MainColumn from '../MainColumn/MainColumn';
 
@@ -58,20 +58,20 @@ function CharacterDetails() {
         const similars = characters
           .filter((c) => c.id !== target.id && (selectedGameId ? c.game_id === selectedGameId : true))
           .map((c) => {
-            const scoreDifference = calculateScoreDifference(c, target);
+            const statDifference = calculateStatDifferences(c, target);
             const commonTags = c.character_tag.filter((t1) =>
               target.character_tag.some((t2) => t1.tag_id === t2.tag_id)
             );
-            const adjustedScoreDifference = commonTags.reduce(
+            const adjustedStatDifference = commonTags.reduce(
               (acc, _, idx) => Math.floor(acc * (1 - 0.2 * (idx + 1))),
-              scoreDifference
+              statDifference
             );
-            return { ...c, scoreDifference: adjustedScoreDifference };
+            return { ...c, statDifference: adjustedStatDifference } as CharacterWithStatDifference;
           })
           .sort((a, b) =>
-            a.scoreDifference !== 0 && b.scoreDifference !== 0
-              ? a.scoreDifference - b.scoreDifference
-              : a.scoreDifference === 0
+            a.statDifference !== 0 && b.statDifference !== 0
+              ? a.statDifference - b.statDifference
+              : a.statDifference === 0
               ? 1
               : -1
           );
@@ -167,7 +167,7 @@ function CharacterDetails() {
                     key={sc.id}
                     character={sc}
                     isComparing
-                    scoreDifference={(sc as CharacterWithScoreDifference).scoreDifference}
+                    statDifference={(sc as CharacterWithStatDifference).statDifference}
                   />
                 )
               );

@@ -35,3 +35,4 @@ docker-compose.yml
 /.firebase
 
 firebase-debug.log
+src/result.txt
